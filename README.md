@@ -3,7 +3,7 @@
 Trenode.js is a project I'm working on to give me and my friend an easy way to check italian trains schedule and real time train tracking through Trenitalia API. 
 This is my first Javascript/Node project so I'm sure there is a lot of spaghetti code. <br/>
 Feel free to contribute! <br/>
-Here is a work-in-progress demo: [Trenode.js](http://35.180.198.183:8080/)
+Here is the work-in-progress website: [Trenode.js](http://35.180.198.183:8080/)
 
 ## Current features
 * Search train solutions between two destinations at a certain date and time
