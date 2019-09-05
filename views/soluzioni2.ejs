@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<style>
+	</style>
+	<title>Trenode.js</title>
+</head>
+<body>
+		<div class="jumbotron text-center" style="background-color:#bffcff">
+				<h2>Trenode.js</h2>
+				<p>Sicuramente meglio di Trenitalia! </p>
+		</div>
+	<div class="container">
+		<div class="" >
+			<% if (soluzioni.length) { var i=0; 
+				%>
+			<form action="/treno" method="POST">
+				<div class="btn-group" data-toggle="buttons">
+				<%soluzioni.forEach(soluzione=>{  if(i>10){return}%>
+				
+						<label class="btn btn-primary">
+						  <input type="radio" required name="nsol" value="<%= i %>">
+						  <% soluzione.vehicles.forEach(treno => {
+							%>
+					<%= treno.origine %> <%= treno.orarioPartenza.slice(treno.orarioPartenza.lastIndexOf('T')+1,treno.orarioPartenza.length-3) %> <span class="glyphicon glyphicon-arrow-right"></span> <%= treno.destinazione %> <%= treno.orarioArrivo.slice(treno.orarioPartenza.lastIndexOf('T')+1,treno.orarioArrivo.length-3) %>
+
+			
+							<% }); %></label><br><br><br><br>
+						<% i+=1;}); %>
+				</div>
+				<input type="submit" class="form-control" style="background-color:#bffcff" value="Conferma"><br><br>
+			</form>
+			<%
+			  } %>
+		</div>
+	</div>
+  </body>
+  </html>

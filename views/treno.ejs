@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+	</style>
+	<title>Trenode.js</title>
+</head>
+
+<body>
+	<div class="jumbotron text-center"
+		style="background-color:#bffcff; padding-bottom: 10px;padding-top: 10px; margin-bottom:0px">
+		<h2>Trenode.js</h2>
+		<p>Sicuramente meglio di Trenitalia! </p>
+	</div>
+	<div class="container">
+		<h3>Numero treno: <%=treno.numeroTreno %></h3>
+		<div class="table-responsive">
+			<table class="table">
+				<tr>
+					<th>Stazione</th>
+					<th>Ora</th>
+					<th>Ritardo</th>
+					<th>Binario</th>
+				</tr>
+				<% treno.fermate.forEach(fermata =>{%>
+				<tr>
+					<td><%= fermata.stazione.toLowerCase().replace(/^\w/, c => c.toUpperCase()); %></td>
+					<% if (fermata.partenza_teorica==null){ %>
+						<td><% var d=new Date(fermata.programmata)  %> <%= d.getHours() %>:<% if (d.getMinutes()<10){%><%="0"+d.getMinutes()%><%}else{%><%=d.getMinutes()%><%}%>   </td>
+					<% }else{ %>
+					<td><% var d=new Date(fermata.partenza_teorica)  %> <%= d.getHours() %>:<% if (d.getMinutes()<10){%><%="0"+d.getMinutes()%><%}else{%><%=d.getMinutes()%><%}%>   </td>
+					<% } %>
+		<td><% if(fermata.ritardo>"0"){ %> <%= ("+"+fermata.ritardo) %> <%}else if (fermata.ritardo=="0"){%><%= "-" %>
+						<%}else{%> <%= (fermata.ritardo) %> <%}%> </td>
+		<td><%=fermata.binarioProgrammatoPartenzaDescrizione%></td>
+				</tr>
+				<% }) %>
+			</table>
+		</div>
+		<h6>Ultimo rilevamento:
+			<%=treno.stazioneUltimoRilevamento.toLowerCase().replace(/^\w/, c => c.toUpperCase());%><% var r=new Date(treno.oraUltimoRilevamento)  %> <%= r.getHours() %>:<% if (r.getMinutes()<10){%><%="0"+r.getMinutes()%><%}else{%><%=r.getMinutes()%><%}%></h6>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+	</style>
+	<title>Trenode.js</title>
+</head>
+
+<body>
+	<div class="jumbotron text-center"
+		style="background-color:#bffcff; padding-bottom: 10px;padding-top: 10px; margin-bottom:0px">
+		<h2>Trenode.js</h2>
+		<p>Sicuramente meglio di Trenitalia! </p>
+	</div>
+	<div class="container" style="padding-left: 30px;padding-bottom: 50px;">
+		
+		<% if (soluzioni !=null) { var i=0; 
+				%>
+		<form action="/treno" method="POST">
+			<h4 class="text-center"> Soluzioni trovate: </h4>
+			<%soluzioni.forEach(soluzione=>{  if(i>10){return}%>
+			<div class="radio" style="padding-bottom: 3px">
+				<input type="radio" name="nsol" required value="<%= i %>">
+
+				<% soluzione.vehicles.forEach(treno => {
+						%>
+				<%= treno.origine %>
+				<%= treno.orarioPartenza.slice(treno.orarioPartenza.lastIndexOf('T')+1,treno.orarioPartenza.length-3) %>
+				<span class="glyphicon glyphicon-arrow-right"></span> <%= treno.destinazione %>
+				<%= treno.orarioArrivo.slice(treno.orarioPartenza.lastIndexOf('T')+1,treno.orarioArrivo.length-3) %>
+				</input> <br>
+				<% }); %>
+			</div>
+			<% i+=1;}); %>
+			<input type="text" hidden readonly value="<%=errore%>" name="id" />
+			<button type="submit" class="btn btn-lg" style="background-color:#bffcff; width:100%" id="load" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Caricamento">Conferma</button>
+		</form>
+		<%
+			  }else{ %>
+				<p class="text-center h4"><%="Nessuna soluzione trovata, ci scusiamo per l'inconveniente."%></p>	
+			<%} %>
+	</div>
+</body>
+<script>
+		$('.btn').on('click', function() {
+		var $this = $(this);
+	  $this.button('loading');
+		setTimeout(function() {
+		   $this.button('reset');
+	   }, 8000);
+	});
+</script>
+</html>
