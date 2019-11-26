@@ -21,8 +21,8 @@
 		<p class="subtitle">Sicuramente meglio di Trenitalia!</p>
 	</div>
 	<div class="container" style="padding-left: 30px;padding-bottom: 50px;">
-		
-		<% if (soluzioni !=null) { var i=0; 
+		<div class="col-sm-12">
+		<% if (typeof soluzioni !== 'undefined' && soluzioni.length > 0) { var i=0; 
 				%>
 		<form action="/treno" method="POST">
 			<h4 class="text-center"> Soluzioni trovate: </h4>
@@ -49,6 +49,8 @@
 		<% }else{ %>
 			<p class="text-center h4"><%="Nessuna soluzione trovata, ci scusiamo per l'inconveniente."%></p>	
 		<%} %>
+		</div>
+		<div class="col-sm-6"><br><a href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div>
 	</div>
 	<script>
 		$('.btn').on('click', function() {
@@ -56,7 +58,7 @@
 		$this.button('loading');
 			setTimeout(function() {
 			$this.button('reset');
-		}, 8000);
+		}, 4000);
 		});
 	</script>
 </body>
