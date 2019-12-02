@@ -27,6 +27,7 @@ Here is the work-in-progress website: [Trenode.js](http://35.180.198.183:8080/)
 ### Server-side
 * [Node.js](https://github.com/nodejs/node) - Javascript runtime
 * [Express](https://github.com/expressjs/express) - Web Framework
+* [Express-Compresson](https://github.com/expressjs/compression) - Compression Middleware
 * [Serve-favicon](https://github.com/expressjs/serve-favicon) - Favicon Middleware
 * [Body-Parser](https://github.com/expressjs/body-parser) - Parsing Middleware
 * [Path](https://github.com/jinder/path) - Path translator
