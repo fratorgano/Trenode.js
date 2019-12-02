@@ -1,3 +1,4 @@
+var compression = require('compression');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -11,6 +12,7 @@ var oggetti=new Array;
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // app.use(express.static('public'));
+app.use(compression());
 app.use('/public', express.static(__dirname +'/public'));
 app.set("view engine", "ejs"); 
 app.set("views", __dirname + "/views");
