@@ -1,20 +1,20 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var func =require('./func.js')
+var func = require('./func.js')
 var favicon = require('serve-favicon');
-var path = require('path')
+var path = require('path');
 
 var id=0;
 var oggetti=new Array;
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
+app.use('/public', express.static(__dirname +'/public'));
 app.set("view engine", "ejs"); 
 app.set("views", __dirname + "/views");
-app.use(favicon(path.join(__dirname, 'images', 'favicon.ico')))
-
+app.use(favicon(path.join(__dirname, 'images', 'favicon.ico')));
 
 app.get("/", (req, res) => { 
    res.render("index");
@@ -22,17 +22,17 @@ app.get("/", (req, res) => {
 
 app.post('/process_post', urlencodedParser, function (req, res) {
    response = {
-	  partenza:req.body.partenza,
-	  arrivo:req.body.arrivo,
-	  data:req.body.data,
-	  ora:req.body.ora
+	  partenza:	req.body.cod_partenza.substr(1), // Rimuovo la prima "S"
+	  arrivo:	req.body.cod_arrivo.substr(1), 	 // Rimuovo la prima "S"
+	  data:		req.body.data,
+	  ora:		req.body.ora
    };
-   var inizio=response.partenza.indexOf("(")+2
+   /* var inizio=response.partenza.indexOf("(")+2
    var fine=response.partenza.indexOf(")")
    response.partenza=response.partenza.slice(inizio,fine)
    var inizio=response.arrivo.indexOf("(")+2
    var fine=response.arrivo.indexOf(")")
-   response.arrivo=response.arrivo.slice(inizio,fine)
+   response.arrivo=response.arrivo.slice(inizio,fine) */
    response.data+='T'
    response.ora+=":00"
    response.data+=response.ora
@@ -47,6 +47,7 @@ app.post('/process_post', urlencodedParser, function (req, res) {
 		},
 	   function(error){
 		   console.log(error.message);
+		   res.render('errore');
 	   });
 })
 app.post('/treno',urlencodedParser,function(req,res){

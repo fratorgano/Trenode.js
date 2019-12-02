@@ -1,0 +1,67 @@
+body, html, p, input {
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 400;
+}
+h1, h2, h3 {
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+.autocomplete {
+    background: white;
+    z-index: 1000;
+    overflow: auto;
+    box-sizing: border-box;
+    border: 1px solid rgba(50, 50, 50, 0.6);
+}
+.autocomplete * {
+    font: inherit;
+}
+.autocomplete > div {
+    padding: 0 4px;
+}
+.autocomplete .group {
+    background: #eee;
+}
+.autocomplete > div:hover:not(.group),
+.autocomplete > div.selected {
+    background: #d0f0e4;
+    cursor: pointer;
+}
+.form-control {
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border-radius: 0px !important;
+}
+.form-control.firefox-fix {
+    line-height: 20px !important;
+}
+.input-secondary {
+    background-color: #d0f0e4;
+}
+.primary-bg {
+    background-color: #13b479;
+    color: #fff;
+}
+.btn-primary, .btn-primary:focus  {
+    background-color: #13b479;
+    border: 1px solid #11a36e !important;
+    color: #fff;
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary.active  {
+    background-color: #11a36e !important;
+}
+.navbar {
+    border-radius: 0px !important;
+}
+.navbar > .subtitle {
+    margin-bottom: 20px;
+}
+.btn {
+    border: 1px solid #ccc;
+    border-radius: 0px !important;
+    width: 100%;
+}
