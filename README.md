@@ -3,7 +3,7 @@
 Trenode.js is a project I'm working on to give me and my friend an easy way to check italian trains schedule and real time train tracking through Trenitalia API. 
 This is my first Javascript/Node project so I'm sure there is a lot of spaghetti code. <br/>
 Feel free to contribute! <br/>
-Here is the work-in-progress website: [Trenode.js](http://trenode.tk/)
+Here is the work-in-progress website: [Trenode.tk](http://trenode.tk/)
 
 ## Current features
 * Search train solutions between two destinations at a certain date and time
@@ -13,8 +13,6 @@ Here is the work-in-progress website: [Trenode.js](http://trenode.tk/)
 ## To do list
 ### Server-side
 * Fix spaghetti code
-* Buy a domain name
-* Enable HTTPS
 ### Client-side
 * Fix spaghetti code
 * Improve website graphic
