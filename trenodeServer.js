@@ -51,7 +51,7 @@ app.post('/process_post', urlencodedParser, async function (req, res) {
 app.post('/treno', urlencodedParser, async function (req, res) {
     const response = {
         nsol: req.body.nsol,
-        id: req.body.id
+        id: req.body.id%limitMemory
     };
     console.log("id usato array: " + response.id);
     //console.log(soluzioni)
@@ -59,7 +59,7 @@ app.post('/treno', urlencodedParser, async function (req, res) {
     const tr = [];
 
      var prom = new Promise((resolve, reject) => {
-        if(cacheSoluzioni[response.id%limitMemory] === undefined){
+        if(cacheSoluzioni[response.id] === undefined){
             reject("failed to retrieve data")
         }
         let i = 0;
