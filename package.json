@@ -2,10 +2,10 @@
   "name": "trenode",
   "version": "2.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "TrenodeServer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node TrenodeServer.js"
   },
   "author": "",
   "license": "ISC",
