@@ -32,6 +32,14 @@ Here is the work-in-progress website: [Trenode.tk](http://trenode.tk/)
 ## Known issues
 * Viaggiatreno APIs are not always reliable so train status might show the wrong train when checking the real time tracking (especially if checking a train that has not departed yet)
 
+## Try it
+If you want to try it on your local machine, you just need to run some simple commands
+1. Either download the repo or clone it (git clone https://github.com/fratorgano/Trenode.js)
+1. Go to the folder you cloned it to
+1. Run the following commands
+    1. npm install (Which install all the modules needed, it shouldn't fail but if it does, just run it again)
+    1. npm start (Starts the server on localhost:8080)
+
 ## Dependencies/Modules Used
 ### Server-side
 * [Node.js](https://github.com/nodejs/node) - Javascript runtime
