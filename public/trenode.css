@@ -36,7 +36,7 @@ td {
     color: #495057;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     border-radius: 0px !important;
 }
 .form-control.firefox-fix {
@@ -51,7 +51,7 @@ td {
 }
 .btn-primary, .btn-primary:focus  {
     background-color: #4db8ff;
-    border: 1px solid #c9e9ff !important;
+    border: 0px solid #c9e9ff !important;
     color: #fff;
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary.active  {
@@ -64,7 +64,7 @@ td {
     margin-bottom: 20px;
 }
 .btn {
-    border: 1px solid #ccc;
+    border: 0px solid #d6d3cd;
     border-radius: 0px !important;
     width: 100%;
 }
@@ -74,15 +74,33 @@ td {
 
 @media (prefers-color-scheme: dark) {
     body {
-      background-color: #292929 !important; 
-      color: white;
-    }
-    .autocomplete {
-        background: black;
+        background-color: #292929;
         color: white;
     }
-    .btn-secondary {
-        color: #292929;
-        background: #c9e9ff;
+    input{
+        color: #d6d3cd;
+    }
+    .primary-bg{
+        background-color: #005f9e;
+    }
+    .input-secondary {
+        color: #d6d3cd;
+        background-color: #005f9e57;
+    }
+    .btn{
+        background-color: #292929;
+        border: 1px solid #005f9e
+    }
+    .btn.focus, .btn:focus, .btn:hover {
+        color: white;
+    }
+    .btn-primary{
+        background-color: #005f9e;
+    }
+    .btn-primary:hover, .btn-primary:active, .btn-primary.active  {
+        background-color: #083655 !important;
+    }
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        border-top: 1px solid #6262626b;
     }
 }
