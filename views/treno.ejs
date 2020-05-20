@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,8 +21,10 @@
 		<h1>Trenode.js</h1>
 		<p class="subtitle">Sicuramente meglio di Trenitalia!</p>
 	</div>
+
 	<div class="container">
-		<h3>Numero treno: <%=treno.numeroTreno %></h3>
+	<% treni.forEach(treno =>{%>
+		<h3><b><%= treno.salita %> <span class="fa fa-arrow-right"></span> <%= treno.discesa %></b> (<%= treno.compNumeroTreno %>)</h3>
 		<div class="table-responsive">
 			<table class="table">
 				<tr>
@@ -30,24 +33,53 @@
 					<th>Ritardo</th>
 					<th>Binario</th>
 				</tr>
+
 				<% treno.fermate.forEach(fermata =>{%>
 				<tr>
-					<td><%= fermata.stazione.toLowerCase().replace(/^\w/, c => c.toUpperCase()); %></td>
+					<td>
+						<%= fermata.stazione.toLowerCase().replace(/^\w/, c => c.toUpperCase()); %>
+					</td>
 					<% if (fermata.partenza_teorica==null){ %>
-						<td><% var d=new Date(fermata.programmata)  %> <%= d.getHours() %>:<% if (d.getMinutes()<10){%><%="0"+d.getMinutes()%><%}else{%><%=d.getMinutes()%><%}%>   </td>
+					<td>
+						<% if (fermata.programmata!=null){ %>
+							<% var d=new Date(fermata.programmata)  %>
+							<%= d.getHours() %>:<% if (d.getMinutes()<10){%><%="0"+d.getMinutes()%><%}else{%><%=d.getMinutes()%><%}%>
+						<% }else{ %> <%= "- : -" %> <%}%>
+					</td>
 					<% }else{ %>
-					<td><% var d=new Date(fermata.partenza_teorica)  %> <%= d.getHours() %>:<% if (d.getMinutes()<10){%><%="0"+d.getMinutes()%><%}else{%><%=d.getMinutes()%><%}%>   </td>
-					<% } %>
-		<td><% if(fermata.ritardo>"0"){ %> <%= ("+"+fermata.ritardo) %> <%}else if (fermata.ritardo=="0"){%><%= "-" %>
-						<%}else{%> <%= (fermata.ritardo) %> <%}%> </td>
-		<td><%=fermata.binarioProgrammatoPartenzaDescrizione%></td>
+					<td>
+						<% var d=new Date(fermata.partenza_teorica)  %> <%= d.getHours() %>:<% if (d.getMinutes()<10){%><%="0"+d.getMinutes()%><%}else{%><%=d.getMinutes()%><%}%>   
+					</td>
+						<% } %>
+					<td>
+						<%if(fermata.ritardo==null || fermata.ritardo=="0"){ %> 
+							<%="-"%>
+						<%}else if(fermata.ritardo>"0"){ %> 
+							<%= ("+"+fermata.ritardo) %>
+						<%}else{%> <%= (fermata.ritardo) %> <%}%> 
+					</td>
+					<td>
+						<%=fermata.binarioProgrammatoPartenzaDescrizione%>
+					</td>
 				</tr>
 				<% }) %>
 			</table>
+
 		</div>
+		<div class="col-sm-6"></div>
+		<% if (treno.stazioneUltimoRilevamento != null){ %>
+			<div class="col-sm-6">
+				<h6 style="text-align: right;">Ultimo rilevamento:
+					<%=treno.stazioneUltimoRilevamento.toLowerCase().replace(/^\w/, c => c.toUpperCase());%><% var r=new Date(treno.oraUltimoRilevamento)  %> <%= r.getHours() %>:<% if (r.getMinutes()<10){%><%="0"+r.getMinutes()%><%}else{%><%=r.getMinutes()%><%}%>
+				</h6>
+			</div>
+		<% } %>
+	<% }) %>
+			<!-- <div class="col-sm-6"><a href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div> -->
+		<div class="container"></div>
 		<div class="col-sm-6"><a href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div>
-		<div class="col-sm-6"><h6 style="text-align: right;">Ultimo rilevamento:
-			<%=treno.stazioneUltimoRilevamento.toLowerCase().replace(/^\w/, c => c.toUpperCase());%><% var r=new Date(treno.oraUltimoRilevamento)  %> <%= r.getHours() %>:<% if (r.getMinutes()<10){%><%="0"+r.getMinutes()%><%}else{%><%=r.getMinutes()%><%}%></h6></div>
-	</div>
+		<div class="container"></div>
+	</div>		
 </body>
+
 </html>

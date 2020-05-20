@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,73 +74,73 @@
 			</form>
 		</div>
 	</div>
+	<script>
+		$('#load').on('click', function () {
+			var spin_button = $(this);
+			spin_button.button('loading');
+			setTimeout(function () {
+				spin_button.button('reset');
+			}, 1000);
+		});
+	</script>
+	<script>
+		function swapValues() {
+			var tmp = document.getElementById("partenza").value;
+			document.getElementById("partenza").value = document.getElementById("arrivo").value;
+			document.getElementById("arrivo").value = tmp;
+			tmp = document.getElementById("cod_partenza").value;
+			document.getElementById("cod_partenza").value = document.getElementById("cod_arrivo").value;
+			document.getElementById("cod_arrivo").value = tmp;
+		}
+	</script>
+	<script>
+		var today = new Date();
+		var date = today.toISOString().substr(0, 10);
+		if (today.getMinutes() < 10) {
+			var time = today.getHours() + ':0' + today.getMinutes();
+		} else {
+			var time = today.getHours() + ':' + today.getMinutes();
+		}
+		console.log(time);
+		document.querySelector("#data").value = date;
+		document.querySelector("#ora").value = time;
+	</script>
+	<script>
+		$.getJSON('/public/stazioni.json', function(stazioni) {
+			var txt_partenza = document.querySelector("#partenza");
+			var cod_partenza = document.querySelector("#cod_partenza");
+			var txt_arrivo = document.querySelector("#arrivo");
+			var cod_arrivo = document.querySelector("#cod_arrivo");
+			autocomplete({
+				input: txt_partenza,
+				minLenght: 1,
+				emptyMsg: "Nessuna stazione trovata",
+				fetch: function (text, update) {
+					text = text.toLowerCase();
+					var suggestions = stazioni.filter(n => n.label.toLowerCase().includes(text))
+					update(suggestions);
+				},
+				onSelect: function (item) {
+					txt_partenza.value = item.label.toLowerCase().replace(/\b./g, function(m){ return m.toUpperCase(); }) + ' (' + item.value + ')';
+					cod_partenza.value = item.value;
+				}
+			});
+			autocomplete({
+				input: txt_arrivo,
+				minLenght: 1,
+				emptyMsg: "Nessuna stazione trovata",
+				fetch: function (text, update) {
+					text = text.toLowerCase();
+					var suggestions = stazioni.filter(n => n.label.toLowerCase().includes(text))
+					update(suggestions);
+				},
+				onSelect: function (item) {
+					txt_arrivo.value = item.label.toLowerCase().replace(/\b./g, function(m){ return m.toUpperCase(); }) + ' (' + item.value + ')';
+					cod_arrivo.value = item.value;
+				}
+			});
+		});
+		
+	</script>
 </body>
-<script>
-	$('#load').on('click', function () {
-		var spin_button = $(this);
-		spin_button.button('loading');
-		setTimeout(function () {
-			spin_button.button('reset');
-		}, 8000);
-	});
-</script>
-<script>
-	function swapValues() {
-		var tmp = document.getElementById("partenza").value;
-		document.getElementById("partenza").value = document.getElementById("arrivo").value;
-		document.getElementById("arrivo").value = tmp;
-		tmp = document.getElementById("cod_partenza").value;
-		document.getElementById("cod_partenza").value = document.getElementById("cod_arrivo").value;
-		document.getElementById("cod_arrivo").value = tmp;
-	}
-</script>
-<script>
-	var today = new Date();
-	var date = today.toISOString().substr(0, 10);
-	if (today.getMinutes() < 10) {
-		var time = today.getHours() + ':0' + today.getMinutes();
-	} else {
-		var time = today.getHours() + ':' + today.getMinutes();
-	}
-	console.log(time);
-	document.querySelector("#data").value = date;
-	document.querySelector("#ora").value = time;
-</script>
-<script>
-	$.getJSON('/public/stazioni.json', function(stazioni) {
-		var txt_partenza = document.querySelector("#partenza");
-		var cod_partenza = document.querySelector("#cod_partenza");
-		var txt_arrivo = document.querySelector("#arrivo");
-		var cod_arrivo = document.querySelector("#cod_arrivo");
-		autocomplete({
-			input: txt_partenza,
-			minLenght: 1,
-			emptyMsg: "Nessuna stazione trovata",
-			fetch: function (text, update) {
-				text = text.toLowerCase();
-				var suggestions = stazioni.filter(n => n.label.toLowerCase().includes(text))
-				update(suggestions);
-			},
-			onSelect: function (item) {
-				txt_partenza.value = item.label.toLowerCase().replace(/\b./g, function(m){ return m.toUpperCase(); }) + ' (' + item.value + ')';
-				cod_partenza.value = item.value;
-			}
-		});
-		autocomplete({
-			input: txt_arrivo,
-			minLenght: 1,
-			emptyMsg: "Nessuna stazione trovata",
-			fetch: function (text, update) {
-				text = text.toLowerCase();
-				var suggestions = stazioni.filter(n => n.label.toLowerCase().includes(text))
-				update(suggestions);
-			},
-			onSelect: function (item) {
-				txt_arrivo.value = item.label.toLowerCase().replace(/\b./g, function(m){ return m.toUpperCase(); }) + ' (' + item.value + ')';
-				cod_arrivo.value = item.value;
-			}
-		});
-	});
-	
-</script>
 </html>

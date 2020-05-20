@@ -7,6 +7,9 @@ h1, h2, h3 {
     font-weight: 300;
     line-height: 1.2;
 }
+td {
+    width: 25%;
+}
 .autocomplete {
     background: white;
     z-index: 1000;
@@ -25,7 +28,7 @@ h1, h2, h3 {
 }
 .autocomplete > div:hover:not(.group),
 .autocomplete > div.selected {
-    background: #d0f0e4;
+    background: #c9e9ff;
     cursor: pointer;
 }
 .form-control {
@@ -40,19 +43,19 @@ h1, h2, h3 {
     line-height: 20px !important;
 }
 .input-secondary {
-    background-color: #d0f0e4;
+    background-color: #c9e9ff;
 }
 .primary-bg {
-    background-color: #13b479;
+    background-color: #4db8ff;
     color: #fff;
 }
 .btn-primary, .btn-primary:focus  {
-    background-color: #13b479;
-    border: 1px solid #11a36e !important;
+    background-color: #4db8ff;
+    border: 1px solid #c9e9ff !important;
     color: #fff;
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary.active  {
-    background-color: #11a36e !important;
+    background-color: #c9e9ff !important;
 }
 .navbar {
     border-radius: 0px !important;
@@ -64,4 +67,22 @@ h1, h2, h3 {
     border: 1px solid #ccc;
     border-radius: 0px !important;
     width: 100%;
+}
+.container {
+    padding-bottom: 5%;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+      background-color: #292929 !important; 
+      color: white;
+    }
+    .autocomplete {
+        background: black;
+        color: white;
+    }
+    .btn-secondary {
+        color: #292929;
+        background: #c9e9ff;
+    }
 }
