@@ -1,16 +1,14 @@
-const compression = require('compression');
 const express = require('express');
+const compression = require('compression');
+var session = require('express-session')
 const bodyParser = require('body-parser');
-const favicon = require('serve-favicon');
+//const favicon = require('serve-favicon');
 const path = require('path');
 
 const func = require('./func.js')
 
 const app = express();
 
-const limitMemory = 10;
-var id = 0;
-const cacheSoluzioni = [];
 // Create application/x-www-form-urlencoded parser
 const urlencodedParser = bodyParser.urlencoded({
     extended: false
@@ -21,28 +19,38 @@ app.use(compression());
 app.use('/public', express.static(__dirname + '/public'));
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
-app.use(favicon(path.join(__dirname, 'images', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'images', 'favicon.ico')));
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+}))
 
 app.get("/", (req, res) => {
     res.render("index");
 });
+app.get("/soluzioni", (req, res) => {
+    res.redirect('/');
+});
+app.get("/treno", (req, res) => {
+    res.redirect('/');
+});
 
-app.post('/process_post', urlencodedParser, async function (req, res) {
+app.post('/soluzioni', urlencodedParser, async function (req, res) {
     const response = {
         partenza: req.body.cod_partenza.substr(1), // Rimuovo la prima "S"
         arrivo: req.body.cod_arrivo.substr(1), // Rimuovo la prima "S"
         data: req.body.data,
         ora: req.body.ora
     };
+    
 
     response.data += 'T'
     response.ora += ":00"
     response.data += response.ora
     const soluzioniData = await func.APIRequest(1,response.partenza + '/' + response.arrivo + '/' + response.data);
-    //Debug thingy
-    soluzioniData.errore = String(id);
 
-    CachingSoluzioni(soluzioniData);
+    req.session.soluzioni = soluzioniData;
 
     res.render('soluzioni', soluzioniData);
 
@@ -51,19 +59,18 @@ app.post('/process_post', urlencodedParser, async function (req, res) {
 app.post('/treno', urlencodedParser, async function (req, res) {
     const response = {
         nsol: req.body.nsol,
-        id: req.body.id%limitMemory
     };
-    console.log("id usato array: " + response.id);
-    //console.log(soluzioni)
 
     const tr = [];
 
-     var prom = new Promise((resolve, reject) => {
-        if(cacheSoluzioni[response.id] === undefined){
+    const soluzioniViaggio = req.session.soluzioni;
+
+    var prom = new Promise((resolve, reject) => {
+        if(soluzioniViaggio === undefined){
             reject("failed to retrieve data")
         }
         let i = 0;
-        cacheSoluzioni[response.id].soluzioni[response.nsol].vehicles.forEach(async (vehicle,order) => {
+        soluzioniViaggio.soluzioni[response.nsol].vehicles.forEach(async (vehicle,order) => {
             const ntreno = vehicle.numeroTreno;
             //console.log(ntreno, typeof ntreno);
             if(ntreno!='Urb'){
@@ -94,10 +101,13 @@ app.post('/treno', urlencodedParser, async function (req, res) {
                 }
                 tr[order] = urb;
             }
-            if (i === cacheSoluzioni[response.id].soluzioni[response.nsol].vehicles.length-1) resolve();
+            if (i === soluzioniViaggio.soluzioni[response.nsol].vehicles.length-1) resolve();
             i++;
         });
     });
+
+    const used = process.memoryUsage().heapUsed / 1024 / 1024;
+    console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
     
 
     prom.then(()=>{
@@ -130,13 +140,6 @@ app.post('/treno', urlencodedParser, async function (req, res) {
     });
 });
 
-function CachingSoluzioni(soluzioni) {
-    cacheSoluzioni[id%limitMemory] = soluzioni;
-    id++;
-    console.log("Dimensione cache soluzioni: " + cacheSoluzioni.length);
-    const used = process.memoryUsage().heapUsed / 1024 / 1024;
-    console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
-}
 
 var server = app.listen(8080, function () {
     var host = server.address().address
