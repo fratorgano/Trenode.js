@@ -10,6 +10,14 @@ h1, h2, h3 {
 td {
     width: 25%;
 }
+a {
+    color: white;
+    text-decoration: none; /* no underline */
+}
+a:hover{
+    color: white;
+    text-decoration: none; /* no underline */
+}
 .autocomplete {
     background: white;
     z-index: 1000;
