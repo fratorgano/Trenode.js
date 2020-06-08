@@ -1,4 +1,4 @@
-![trenode Icon](https://github.com/FrancescoTorgano/Trenode.js/blob/master/public/favicon.png)
+![trenodeIcon](https://github.com/FrancescoTorgano/Trenode.js/blob/master/images/favicon.ico)
 # Trenode.js
 Trenode.js is a project I'm working on to give me and my friend an easy way to check italian trains schedule and real time train tracking through Trenitalia API. 
 This is my first Javascript/Node project so I'm sure there is a lot of spaghetti code. <br/>

@@ -5,7 +5,7 @@
   "main": "TrenodeServer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node trenodeServer.js"
+    "start": "node TrenodeServer.js"
   },
   "author": "",
   "license": "ISC",
