@@ -22,10 +22,10 @@ const urlencodedParser = bodyParser.urlencoded({
 
 const page = "/soluzioni";
 
-router.get('', (req, res) => {
+router.get('', (_, res) => {
     res.redirect('/');
 });
-router.get('/', (req, res) => {
+router.get('/', (_, res) => {
     res.redirect('/');
 });
 

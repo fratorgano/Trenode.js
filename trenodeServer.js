@@ -4,16 +4,8 @@ const session = require('express-session')
 const bodyParser = require('body-parser');
 const fs = require('fs');
 //const favicon = require('serve-favicon');
-const path = require('path');
-
-const func = require('./func.js')
 
 const app = express();
-
-// Create application/x-www-form-urlencoded parser
-const urlencodedParser = bodyParser.urlencoded({
-    extended: false
-});
 
 // app.use(express.static('public'));
 app.use(compression());
@@ -39,6 +31,11 @@ for (const file of routesFiles) {
     console.log(file, route.name)
     app.use(route.name, route.router);
 }
+
+//Redirects all non-existent page requests to the index
+app.use(function(req, res) {
+    res.redirect('/');
+  });
 
 const server = app.listen(8080, function () {
     const host = server.address().address
