@@ -68,7 +68,7 @@
                     b.innerHTML = treno.salita +' <span class="fa fa-arrow-right"></span> '+ treno.discesa;
                     h3.appendChild(b)
                     h3.innerHTML += ' (' + treno.compNumeroTreno + ')<br>';
-                    h3.innerHTML += (treno.ritardo === undefined||treno.ritardo==0?'':((treno.ritardo>0?('In ritardo di '+treno.ritardo):('In anticipo di '+(treno.ritardo*-1))))+(Math.abs(treno.ritardo)==1?' minuto':' minuti'));
+                    h3.innerHTML += treno.ritardo === undefined?'':treno.ritardo==0?'In Orario':((treno.ritardo>0?('In ritardo di '+treno.ritardo):('In anticipo di '+(treno.ritardo*-1))))+(Math.abs(treno.ritardo)==1?' minuto':' minuti');
                     h3.classList.add('mb')
 
                     const table = document.createElement('table');
@@ -105,10 +105,10 @@
                         }
                         tr.appendChild(td);
                         td = document.createElement('td');
-                        td.innerText = (fermata.ritardo == undefined ||fermata.partenzaReale == undefined) ? '-':(fermata.ritardo==0?'0':fermata.ritardo>0?('+'+fermata.ritardo):fermata.ritardo);
+                        td.innerText = (fermata.ritardo == undefined ||(fermata.arrivoReale == undefined&&fermata.partenzaReale == undefined)) ? '-':(fermata.ritardo==0?'0':fermata.ritardo>0?('+'+fermata.ritardo):fermata.ritardo);
                         tr.appendChild(td);
                         td = document.createElement('td');
-                        td.innerText = fermata.binarioProgrammatoPartenzaDescrizione == null ? '-' : fermata.binarioProgrammatoPartenzaDescrizione
+                        td.innerText = fermata.binarioEffettivoPartenzaDescrizione == undefined?(fermata.binarioProgrammatoPartenzaDescrizione == undefined ? (fermata.binarioEffettivoArrivoDescrizione == undefined?( fermata.binarioProgrammatoArrivoDescrizione == undefined?'-':fermata.binarioProgrammatoArrivoDescrizione):fermata.binarioEffettivoArrivoDescrizione) : fermata.binarioProgrammatoPartenzaDescrizione):fermata.binarioEffettivoPartenzaDescrizione;
                         tr.appendChild(td);
                         tbody.appendChild(tr);
                     })
