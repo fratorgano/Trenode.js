@@ -14,6 +14,9 @@ a {
     color: white;
     text-decoration: none; /* no underline */
 }
+.table-responsive{
+    border: 0px !important;
+}
 .back{
     color: #333333; 
 }
