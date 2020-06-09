@@ -70,11 +70,11 @@
 		</div>
 		<div class="col-sm-6"></div>
 		<% if (treno.stazioneUltimoRilevamento != null){ %>
-			<div class="col-sm-6">
-				<h6 style="text-align: right;">Ultimo rilevamento:
-					<%=treno.stazioneUltimoRilevamento.toLowerCase().replace(/^\w/, c => c.toUpperCase());%><% var r=new Date(treno.oraUltimoRilevamento)  %> <%= r.getHours() %>:<% if (r.getMinutes()<10){%><%="0"+r.getMinutes()%><%}else{%><%=r.getMinutes()%><%}%>
-				</h6>
-			</div>
+		<div class="col-sm-6">
+			<h6 style="text-align: right;">Ultimo rilevamento:
+				<%=treno.stazioneUltimoRilevamento.toLowerCase().replace(/^\w/, c => c.toUpperCase());%><% var r=new Date(treno.oraUltimoRilevamento)  %> <%= r.getHours() %>:<% if (r.getMinutes()<10){%><%="0"+r.getMinutes()%><%}else{%><%=r.getMinutes()%><%}%>
+			</h6>
+		</div>
 		<% } %>
 	<% }) %>
 			<!-- <div class="col-sm-6"><a href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div> -->

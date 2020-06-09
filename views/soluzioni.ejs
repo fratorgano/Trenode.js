@@ -25,7 +25,7 @@
 		<div class="col-sm-12">
 		<% if (typeof soluzioni !== 'undefined' && soluzioni.length > 0) { var i=0; 
 				%>
-		<form action="/treno" method="POST">
+		<form action="/trenoAjax" method="POST">
 			<h2 class="text-center"> Soluzioni trovate: </h2>
 			<% soluzioni.forEach(soluzione => {  if (i > 10) { return; } %>
 

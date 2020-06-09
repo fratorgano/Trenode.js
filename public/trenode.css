@@ -14,6 +14,12 @@ a {
     color: white;
     text-decoration: none; /* no underline */
 }
+.back{
+    color: #333333; 
+}
+.mb{
+    margin-bottom: 3%;
+}
 a:hover{
     color: white;
     text-decoration: none; /* no underline */
@@ -87,6 +93,9 @@ a:hover{
     }
     input{
         color: #d6d3cd;
+    }
+    .back{
+        color: white;
     }
     .primary-bg{
         background-color: #005f9e;

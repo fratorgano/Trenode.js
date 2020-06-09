@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400&display=swap">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="public/trenode.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://kraaden.github.io/autocomplete/autocomplete.js"></script>
+	<link rel="shortcut icon" href="public/favicon.png" type="image/x-icon">
+	<link rel="icon" href="public/favicon.png" type="image/x-icon">
+	<link rel="apple-touch-icon" href="public/apple-touch-icon.png">
+	<title>Trenode.js</title>
+</head>
+
+<body>
+	<div class="navbar text-center primary-bg">
+		<h1> <a href="/">Trenode.js</a> </h1> 
+		<p class="subtitle">Sicuramente meglio di Trenitalia!</p>
+    </div>
+    <div id='jquery'>
+	    <!-- 
+            <div class="container" id="cont">
+                <div class="table-responsive" id="treni">
+
+                </div>
+                <div class="col-sm-6"><a class="back" href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div>
+            </div> 
+    -->
+
+    </div>
+    
+</body>
+<script>
+    $(document).ready(function() {
+        createTable();
+        // auto refresh page after 60 seconds
+        setInterval('createTable()', 60000);
+    });
+</script>
+<script>
+    function createTable(){
+        http_request = new XMLHttpRequest();
+
+        data_file = "dataAjax"
+
+        http_request.onreadystatechange = function() {
+            if (http_request.readyState == 4) {
+                // Javascript function JSON.parse to parse JSON data
+                const treni = JSON.parse(http_request.responseText);
+                //console.log(treni);
+                /* const divCont = document.createElement('div');
+                divCont.classList.add('container');
+                divCont.id = 'cont';
+                const divTreni = document.createElement('div');
+                divTreni.classList.add('table-responsize');
+                divTreni.id = 'treni';
+                divCont.appendChild(divTreni);
+                divCont.insertAdjacentHTML('<div class="col-sm-6"><a href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div>') */
+                $('#jquery').html('<div class="container" id="cont"><div class="table-responsive" id="treni"></div><div class="col-sm-6"><a class="back" href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div></div>')
+
+                treni.forEach(treno=>{
+                    const h3 = document.createElement('h3');
+                    const b = document.createElement('b');
+                    b.innerHTML = treno.salita +' <span class="fa fa-arrow-right"></span> '+ treno.discesa;
+                    h3.appendChild(b)
+                    h3.innerHTML += ' (' + treno.compNumeroTreno + ')<br>';
+                    h3.innerHTML += (treno.ritardo === undefined||treno.ritardo==0?'':((treno.ritardo>0?('In ritardo di '+treno.ritardo):('In anticipo di '+(treno.ritardo*-1))))+(Math.abs(treno.ritardo)==1?' minuto':' minuti'));
+                    h3.classList.add('mb')
+
+                    const table = document.createElement('table');
+                    table.classList.add('table')
+                    const tbody = document.createElement('tbody');
+                    var tr = document.createElement('tr');
+                    var th = document.createElement('th');
+                    th.innerText = 'Stazione'
+                    tr.appendChild(th);
+                    th = document.createElement('th');
+                    th.innerText = 'Ora'
+                    tr.appendChild(th);
+                    th = document.createElement('th');
+                    th.innerText = 'Ritardo'
+                    tr.appendChild(th);
+                    th = document.createElement('th');
+                    th.innerText = 'Binario'
+                    tr.appendChild(th);
+                    tbody.appendChild(tr);
+                    treno.fermate.forEach(fermata=>{
+                        tr = document.createElement('tr')
+                        var td = document.createElement('td')
+                        td.innerText = fermata.stazione.toLowerCase().replace(/\b\w/gm, c => c.toUpperCase());
+                        tr.appendChild(td);
+                        td = document.createElement('td');
+                        d = fermata.partenza_teorica==null?new Date(fermata.programmata):new Date(fermata.partenza_teorica);
+                        if (!fermata.programmata && !fermata.partenza_teorica){
+                            td.innerText = '- : -'
+                        }else{
+                            td.innerText = d.getHours();
+                            td.innerText+= ":";
+                            td.innerText+= d.getMinutes()<10?('0'+d.getMinutes()):d.getMinutes();
+                            //td.innerText = d.getHours() + ':' + d.getMinutes()<10?('0'+d.getMinutes()):d.getMinutes();
+                        }
+                        tr.appendChild(td);
+                        td = document.createElement('td');
+                        td.innerText = (fermata.ritardo == undefined ||fermata.partenzaReale == undefined) ? '-':(fermata.ritardo==0?'0':fermata.ritardo>0?('+'+fermata.ritardo):fermata.ritardo);
+                        tr.appendChild(td);
+                        td = document.createElement('td');
+                        td.innerText = fermata.binarioProgrammatoPartenzaDescrizione == null ? '-' : fermata.binarioProgrammatoPartenzaDescrizione
+                        tr.appendChild(td);
+                        tbody.appendChild(tr);
+                    })
+
+
+                    //tbody.appendChild(tr);
+                    //table.prepend(h3);
+                    table.appendChild(tbody);
+                    $('#treni').append(h3);
+                    $('#treni').append(table)
+
+
+                    var div = document.createElement('div')
+                    div.classList.add('col-sm-6');
+                    $('#treni').append(div);
+                    if(treno.stazioneUltimoRilevamento != null){
+                        var div = document.createElement('div');
+                        const h6 = document.createElement('h6');
+                        h6.classList.add('text-right');
+                        h6.innerText = 'Ultimo rilevamento: '
+                        h6.innerText += treno.stazioneUltimoRilevamento.toLowerCase().replace(/\b\w/gm, c => c.toUpperCase());
+                        var o = new Date(treno.oraUltimoRilevamento);
+                        h6.innerText += " "
+                        h6.innerText+= o.getHours();
+                        h6.innerText+= ":";
+                        h6.innerText+= o.getMinutes()<10?('0'+o.getMinutes()):o.getMinutes();
+                        div.appendChild(h6);
+                        div.classList.add('col-sm-6');
+                        $('#treni').append(div);
+                    }
+                })
+            }
+        }
+        http_request.open("GET", data_file, true);
+        http_request.send();
+    }
+</script>
+</html>
+
