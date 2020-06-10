@@ -39,9 +39,9 @@ router.post('', urlencodedParser, async function (req, res) {
         ora: req.body.ora
     };
     req.session.partenza = response.partenza;
-    req.session.codicePartenza = response.codicePartenza;
+    req.session.codicePartenza = req.body.cod_partenza;
     req.session.arrivo = response.arrivo;
-    req.session.codiceArrivo = response.codiceArrivo;
+    req.session.codiceArrivo = req.body.cod_arrivo;
     req.session.data = response.data;
     req.session.ora = response.ora;
     

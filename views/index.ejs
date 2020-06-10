@@ -72,6 +72,7 @@
 						data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Ricerca in corso">Cerca</button>
 					</div>
 				</div>
+				<input type="hidden" name="reloaded" id="reloaded" value='false' />
 			</form>
 		</div>
 	</div>
@@ -99,12 +100,15 @@
 		}
 	</script>
 	<!-- <script>
-		var today = new Date();
-		var date = today.toISOString().substr(0, 10);
-		var time = today.getHours()<10?'0'+today.getHours():today.getHours();
-		time += today.getMinutes()<10?':0'+ today.getMinutes():':' + today.getMinutes();
-		document.querySelector("#data").value = date;
-		document.querySelector("#ora").value = time;
+		function reload(){
+			console.log(document.getElementById("reloaded").value=='false')
+			if(document.getElementById("reloaded").value=='false'){
+				console.log('QUIIIIIIIIIII');
+				
+				location.reload(true);
+				document.getElementById("reloaded").value = true;
+			}
+		}
 	</script> -->
 	<script>
 		$.getJSON('/public/stazioni.json', function(stazioni) {

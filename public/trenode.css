@@ -21,6 +21,9 @@ a {
     color: white;
     text-decoration: none; /* no underline */
 }
+.col-sm-6 a, .col-sm-6 a:hover{
+    color: black;
+}
 .table-responsive{
     border: 0px !important;
 }
@@ -147,5 +150,8 @@ a:hover{
     .autocomplete > div:hover:not(.group), .autocomplete > div.selected {
         background: #005f9e57;
         cursor: pointer;
+    }
+    .col-sm-6 a, .col-sm-6 a:hover{
+        color: white;
     }
 }

@@ -64,11 +64,13 @@ module.exports={
 							id: await module.exports.APIRequest(4,vehicle.destinazione)
 						}],
 						salita: vehicle.origine,
-						discesa: vehicle.destinazione
+						discesa: vehicle.destinazione,
+						oraUltimoRilevamento: 0,
+						ritardo: undefined,
 					}
 					tr[order] = urb;
 				}
-				if (i === soluzioniViaggio.soluzioni[nsol].vehicles.length-1) resolve(tr);
+				if (i == soluzioniViaggio.soluzioni[nsol].vehicles.length-1) resolve(tr);
 				i++;
 			});
 		})

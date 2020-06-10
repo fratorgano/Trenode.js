@@ -17,11 +17,11 @@ app.use(session({
     secret: 'NCpPT3LyxSq5z8n52YPQsVrWvbvyBLSZ',
     name: 'SessionId',
     resave: false,
-    rolling: true,
+    //rolling: true,
     saveUninitialized: true,
-    cookie: {
-        maxAge: 600000
-    }
+    //cookie: {
+    //    maxAge: 600000
+    //}
 }))
 
 const routesFiles = fs.readdirSync('./routes').filter(file => file.endsWith('.js'));

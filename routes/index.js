@@ -31,6 +31,7 @@ router.get('', (req, res) => {
     if(req.session.ora){
         inputs.ora = req.session.ora;
     }
+    
     res.render("index", inputs);
 });
 
