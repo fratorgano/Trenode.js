@@ -30,8 +30,8 @@
 					<div class="form-group">
 						<label>Partenza</label>
 						<input class="form-control input-secondary" required autocomplete="off" id="partenza" name="partenza"
-						type="text" value="<%=partenza %>" onfocus="this.select();" onmouseup="return false;" />
-						<input type="hidden" name="cod_partenza" id="cod_partenza" value="<%=codicePartenza %>" />
+						type="text" value="Novara (S00248)" onfocus="this.select();" onmouseup="return false;" />
+						<input type="hidden" name="codicePartenza" id="codicePartenza" value="S00248" />
 					</div>
 				</div>
 				<div class="col-md-2">
@@ -46,8 +46,8 @@
 					<div class="form-group">
 						<label>Arrivo</label>
 						<input class="form-control input-secondary" required autocomplete="off" id="arrivo" name="arrivo" type="text"
-						value="<%=arrivo %>" onfocus="this.select();" onmouseup="return false;" />
-						<input type="hidden" name="cod_arrivo" id="cod_arrivo" value="<%=codiceArrivo %>" />
+						value="Milano Centrale (S01700)" onfocus="this.select();" onmouseup="return false;" />
+						<input type="hidden" name="codiceArrivo" id="codiceArrivo" value="S01700" />
 					</div>
 				</div>
 				
@@ -55,14 +55,14 @@
 				<div class="col-md-6">
 					<div class="form-group input-group-lg">
 						<label>Data</label>
-						<input class="form-control input-secondary firefox-fix" id="data" name="data" value="<%=data %>"
+						<input class="form-control input-secondary firefox-fix" id="data" name="data" value=""
 						type="date" required/>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group input-group-lg">
 						<label>Ora</label>
-						<input class="form-control input-secondary firefox-fix" id="ora" name="ora" type="time" required value="<%=ora %>"/>
+						<input class="form-control input-secondary firefox-fix" id="ora" name="ora" type="time" required value=""/>
 					</div>
 				</div>
 
@@ -72,7 +72,6 @@
 						data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Ricerca in corso">Cerca</button>
 					</div>
 				</div>
-				<input type="hidden" name="reloaded" id="reloaded" value='false' />
 			</form>
 		</div>
 	</div>
@@ -81,7 +80,50 @@
 		Made by <b><a href="https://fratorgano.me" target="_blank">Francesco Torgano</a></b> © 2020
 	</footer>
 	<script>
+		window.onpageshow = function(){
+			if(sessionStorage.getItem('partenza')){
+				$('#partenza').val(sessionStorage.getItem('partenza'))
+			}
+			if(sessionStorage.getItem('codicePartenza')){
+				$('#codicePartenza').val(sessionStorage.getItem('codicePartenza'))
+			}
+			if(sessionStorage.getItem('arrivo')){
+				$('#arrivo').val(sessionStorage.getItem('arrivo')) 
+			}
+			if(sessionStorage.getItem('codiceArrivo')){
+				$('#codiceArrivo').val(sessionStorage.getItem('codiceArrivo'))
+			}
+			if(sessionStorage.getItem('ora')){
+				$('#ora').val(sessionStorage.getItem('ora'))
+			}
+			if(sessionStorage.getItem('codiceArrivo')){
+				$('#data').val(sessionStorage.getItem('data'))
+			}
+		}
+	</script>
+	<script>
+		var today = new Date();
+		var date = today.toISOString().substr(0, 10);
+		if (today.getMinutes() < 10) {
+			var time = today.getHours() + ':0' + today.getMinutes();
+		} else {
+			var time = today.getHours() + ':' + today.getMinutes();
+		}
+		//console.log(time);
+		var time = today.getHours()<10?'0'+today.getHours():today.getHours();
+		time += today.getMinutes()<10?':0'+ today.getMinutes():':' + today.getMinutes();
+		document.querySelector("#data").value = date;
+		document.querySelector("#ora").value = time;
+	</script>
+	<script>
 		$('#load').on('click', function () {
+			console.log($('#partenza').val)
+			sessionStorage.setItem('partenza',$('#partenza').val())
+			sessionStorage.setItem('codicePartenza',$('#codicePartenza').val())
+			sessionStorage.setItem('arrivo',$('#arrivo').val())
+			sessionStorage.setItem('codiceArrivo',$('#codiceArrivo').val())
+			sessionStorage.setItem('data',$('#data').val())
+			sessionStorage.setItem('ora',$('#ora').val())
 			var spin_button = $(this);
 			spin_button.button('loading');
 			setTimeout(function () {
@@ -94,28 +136,17 @@
 			var tmp = document.getElementById("partenza").value;
 			document.getElementById("partenza").value = document.getElementById("arrivo").value;
 			document.getElementById("arrivo").value = tmp;
-			tmp = document.getElementById("cod_partenza").value;
-			document.getElementById("cod_partenza").value = document.getElementById("cod_arrivo").value;
-			document.getElementById("cod_arrivo").value = tmp;
+			tmp = document.getElementById("codicePartenza").value;
+			document.getElementById("codicePartenza").value = document.getElementById("codiceArrivo").value;
+			document.getElementById("codiceArrivo").value = tmp;
 		}
 	</script>
-	<!-- <script>
-		function reload(){
-			console.log(document.getElementById("reloaded").value=='false')
-			if(document.getElementById("reloaded").value=='false'){
-				console.log('QUIIIIIIIIIII');
-				
-				location.reload(true);
-				document.getElementById("reloaded").value = true;
-			}
-		}
-	</script> -->
 	<script>
 		$.getJSON('/public/stazioni.json', function(stazioni) {
 			var txt_partenza = document.querySelector("#partenza");
-			var cod_partenza = document.querySelector("#cod_partenza");
+			var codicePartenza = document.querySelector("#codicePartenza");
 			var txt_arrivo = document.querySelector("#arrivo");
-			var cod_arrivo = document.querySelector("#cod_arrivo");
+			var codiceArrivo = document.querySelector("#codiceArrivo");
 			autocomplete({
 				input: txt_partenza,
 				minLenght: 1,
@@ -127,7 +158,7 @@
 				},
 				onSelect: function (item) {
 					txt_partenza.value = item.label.toLowerCase().replace(/\b./g, function(m){ return m.toUpperCase(); }) + ' (' + item.value + ')';
-					cod_partenza.value = item.value;
+					codicePartenza.value = item.value;
 				}
 			});
 			autocomplete({
@@ -141,7 +172,7 @@
 				},
 				onSelect: function (item) {
 					txt_arrivo.value = item.label.toLowerCase().replace(/\b./g, function(m){ return m.toUpperCase(); }) + ' (' + item.value + ')';
-					cod_arrivo.value = item.value;
+					codiceArrivo.value = item.value;
 				}
 			});
 		});

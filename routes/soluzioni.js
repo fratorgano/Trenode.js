@@ -32,18 +32,12 @@ router.get('/', (_, res) => {
 router.post('', urlencodedParser, async function (req, res) {
     const response = {
         partenza: req.body.partenza,
-        codicePartenza: req.body.cod_partenza.substr(1), // Rimuovo la prima "S"
+        codicePartenza: req.body.codicePartenza.substr(1), // Rimuovo la prima "S"
         arrivo: req.body.arrivo,
-        codiceArrivo: req.body.cod_arrivo.substr(1), // Rimuovo la prima "S"
+        codiceArrivo: req.body.codiceArrivo.substr(1), // Rimuovo la prima "S"
         data: req.body.data,
         ora: req.body.ora
     };
-    req.session.partenza = response.partenza;
-    req.session.codicePartenza = req.body.cod_partenza;
-    req.session.arrivo = response.arrivo;
-    req.session.codiceArrivo = req.body.cod_arrivo;
-    req.session.data = response.data;
-    req.session.ora = response.ora;
     
     response.data += 'T'
     response.ora += ":00"
