@@ -2,6 +2,13 @@ body, html, p, input {
     font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 400;
 }
+html{
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin-bottom: 60px; /* Margin bottom by footer height */
+}
 h1, h2, h3 {
     margin-bottom: 0.5rem;
     font-weight: 300;
@@ -87,6 +94,17 @@ a:hover{
 }
 .container {
     padding-bottom: 5%;
+}
+.footer {
+    position: absolute;
+    text-align: right;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    padding-right: 2%;
+  }
+.footer a{
+    color:inherit;
 }
 
 @media (prefers-color-scheme: dark) {
