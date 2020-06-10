@@ -97,12 +97,8 @@
 	<script>
 		var today = new Date();
 		var date = today.toISOString().substr(0, 10);
-		if (today.getMinutes() < 10) {
-			var time = today.getHours() + ':0' + today.getMinutes();
-		} else {
-			var time = today.getHours() + ':' + today.getMinutes();
-		}
-		console.log(time);
+		var time = today.getHours()<10?'0'+today.getHours():today.getHours();
+		time += today.getMinutes()<10?':0'+ today.getMinutes():':' + today.getMinutes();
 		document.querySelector("#data").value = date;
 		document.querySelector("#ora").value = time;
 	</script>
