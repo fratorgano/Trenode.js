@@ -28,7 +28,7 @@ const routesFiles = fs.readdirSync('./routes').filter(file => file.endsWith('.js
 
 for (const file of routesFiles) {
     const route = require('./routes/' + file);
-    console.log(file, route.name)
+    //console.log(file, route.name)
     app.use(route.name, route.router);
 }
 

@@ -34,16 +34,24 @@ module.exports={
 				//console.log(ntreno, typeof ntreno);
 				if(ntreno!='Urb'){
 					let data = await module.exports.APIRequest(2,ntreno);
-					const limite = data.indexOf("\n");
-					data = data.slice(0,limite);
-					const inizio = data.lastIndexOf("-") + 1;
-					const stazionePartenza = data.slice(inizio, inizio + 6);
-					//console.log("QUi "+stazionePartenza+"qui");
-					const train = await module.exports.APIRequest(3, stazionePartenza + "/" + ntreno)
-					train.salita = vehicle.origine
-					train.discesa = vehicle.destinazione
-					//console.log(data2.numeroTreno);
-					tr[order] = train;
+					if(data){
+						const limite = data.indexOf("\n");
+						data = data.slice(0,limite);
+						const inizio = data.lastIndexOf("-") + 1;
+						const stazionePartenza = data.slice(inizio, inizio + 6);
+						//console.log("QUi "+stazionePartenza+"qui");
+						const train = await module.exports.APIRequest(3, stazionePartenza + "/" + ntreno)
+						if(train){
+							train.salita = vehicle.origine
+							train.discesa = vehicle.destinazione
+							//console.log(data2.numeroTreno);
+							tr[order] = train;
+						}else{
+							reject(new Error('Errore richiesta dati treno (APIRequest 3)'));
+						}
+					}else{
+						reject(new Error('Errore autocompletamento treni (APIRequest 2)'));
+					}
 				}else{
 					const urb = {
 						compNumeroTreno: "Tragitto Urbano",

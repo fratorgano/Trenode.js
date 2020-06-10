@@ -30,8 +30,8 @@
 					<div class="form-group">
 						<label>Partenza</label>
 						<input class="form-control input-secondary" required autocomplete="off" id="partenza" name="partenza"
-						type="text" value="Novara (S00248)" onfocus="this.select();" onmouseup="return false;" />
-						<input type="hidden" name="cod_partenza" id="cod_partenza" value="S00248" />
+						type="text" value="<%=partenza %>" onfocus="this.select();" onmouseup="return false;" />
+						<input type="hidden" name="cod_partenza" id="cod_partenza" value="<%=codicePartenza %>" />
 					</div>
 				</div>
 				<div class="col-md-2">
@@ -46,8 +46,8 @@
 					<div class="form-group">
 						<label>Arrivo</label>
 						<input class="form-control input-secondary" required autocomplete="off" id="arrivo" name="arrivo" type="text"
-						value="Milano Centrale (S01700)" onfocus="this.select();" onmouseup="return false;" />
-						<input type="hidden" name="cod_arrivo" id="cod_arrivo" value="S01700" />
+						value="<%=arrivo %>" onfocus="this.select();" onmouseup="return false;" />
+						<input type="hidden" name="cod_arrivo" id="cod_arrivo" value="<%=codiceArrivo %>" />
 					</div>
 				</div>
 				
@@ -55,14 +55,14 @@
 				<div class="col-md-6">
 					<div class="form-group input-group-lg">
 						<label>Data</label>
-						<input class="form-control input-secondary firefox-fix" id="data" autocomplete="off" name="data"
+						<input class="form-control input-secondary firefox-fix" id="data" name="data" value="<%=data %>"
 						type="date" required/>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group input-group-lg">
 						<label>Ora</label>
-						<input class="form-control input-secondary firefox-fix" id="ora" name="ora" type="time" required />
+						<input class="form-control input-secondary firefox-fix" id="ora" name="ora" type="time" required value="<%=ora %>"/>
 					</div>
 				</div>
 
@@ -98,14 +98,14 @@
 			document.getElementById("cod_arrivo").value = tmp;
 		}
 	</script>
-	<script>
+	<!-- <script>
 		var today = new Date();
 		var date = today.toISOString().substr(0, 10);
 		var time = today.getHours()<10?'0'+today.getHours():today.getHours();
 		time += today.getMinutes()<10?':0'+ today.getMinutes():':' + today.getMinutes();
 		document.querySelector("#data").value = date;
 		document.querySelector("#ora").value = time;
-	</script>
+	</script> -->
 	<script>
 		$.getJSON('/public/stazioni.json', function(stazioni) {
 			var txt_partenza = document.querySelector("#partenza");

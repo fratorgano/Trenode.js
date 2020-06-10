@@ -31,21 +31,35 @@ router.get('/', (_, res) => {
 
 router.post('', urlencodedParser, async function (req, res) {
     const response = {
-        partenza: req.body.cod_partenza.substr(1), // Rimuovo la prima "S"
-        arrivo: req.body.cod_arrivo.substr(1), // Rimuovo la prima "S"
+        partenza: req.body.partenza,
+        codicePartenza: req.body.cod_partenza.substr(1), // Rimuovo la prima "S"
+        arrivo: req.body.arrivo,
+        codiceArrivo: req.body.cod_arrivo.substr(1), // Rimuovo la prima "S"
         data: req.body.data,
         ora: req.body.ora
     };
+    req.session.partenza = response.partenza;
+    req.session.codicePartenza = response.codicePartenza;
+    req.session.arrivo = response.arrivo;
+    req.session.codiceArrivo = response.codiceArrivo;
+    req.session.data = response.data;
+    req.session.ora = response.ora;
     
-
     response.data += 'T'
     response.ora += ":00"
     response.data += response.ora
-    const soluzioniData = await func.APIRequest(1,response.partenza + '/' + response.arrivo + '/' + response.data);
-
-    req.session.soluzioni = soluzioniData;
-
-    res.render(page.slice(1,), soluzioniData);
+    if(response.codicePartenza == undefined||response.codiceArrivo == undefined){
+        res.redirect('/errore');
+    }
+    const soluzioniData = await func.APIRequest(1,response.codicePartenza + '/' + response.codiceArrivo + '/' + response.data);
+    if(soluzioniData){
+        req.session.soluzioni = soluzioniData;
+        res.render(page.slice(1,), soluzioniData);
+    }else{
+        console.log(new Error('Errore richiesta dati treno (APIRequest 1)'));
+        res.redirect('/errore');
+    }
+    
 }); 
 
 module.exports = {
