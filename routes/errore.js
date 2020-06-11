@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const page = "/errore";
+const page = '/errore';
 
 router.get('', (req, res) => {
-    res.render("errore");
+	res.render('errore');
 });
 
 module.exports = {
-    name: page,
-    router: router,
+	name: page,
+	router: router,
 };

@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const page = "/";
+const page = '/';
 
 router.get('', (req, res) => {
-    res.render("index");
+	res.render('index');
 });
 
 module.exports = {
-    name: page,
-    router: router,
+	name: page,
+	router: router,
 };
-
-

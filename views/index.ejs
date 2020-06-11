@@ -6,17 +6,19 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400&display=swap">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="public/trenode.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="https://kraaden.github.io/autocomplete/autocomplete.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="public/trenode.css" />
+	<script src="public/library.js"></script>
 	<link rel="shortcut icon" href="public/favicon.png" type="image/x-icon">
 	<link rel="icon" href="public/favicon.png" type="image/x-icon">
 	<link rel="apple-touch-icon" href="public/apple-touch-icon.png">
 	<title>Trenode.js</title>
 </head>
 
-<body>
+<body onpageshow="loadSessionStorage()">
 	<div class="navbar text-center primary-bg">
 		<h1> <a href="/">Trenode.js</a> </h1> 
 		<p class="subtitle">Sicuramente meglio di Trenitalia!</p>
@@ -30,7 +32,7 @@
 					<div class="form-group">
 						<label>Partenza</label>
 						<input class="form-control input-secondary" required autocomplete="off" id="partenza" name="partenza"
-						type="text" value="Novara (S00248)" onfocus="this.select();" onmouseup="return false;" />
+						type="text" value="Novara (S00248)" onfocus="this.select();"/>
 						<input type="hidden" name="codicePartenza" id="codicePartenza" value="S00248" />
 					</div>
 				</div>
@@ -46,7 +48,7 @@
 					<div class="form-group">
 						<label>Arrivo</label>
 						<input class="form-control input-secondary" required autocomplete="off" id="arrivo" name="arrivo" type="text"
-						value="Milano Centrale (S01700)" onfocus="this.select();" onmouseup="return false;" />
+						value="Milano Centrale (S01700)" onfocus="this.select();"/>
 						<input type="hidden" name="codiceArrivo" id="codiceArrivo" value="S01700" />
 					</div>
 				</div>
@@ -68,8 +70,10 @@
 
 				<div class="col-md-12">
 					<div class="form-group">
-						<button type="submit" class="btn btn-lg btn-primary" id="load"
-						data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Ricerca in corso">Cerca</button>
+						<button type="submit" class="btn btn-lg btn-primary" id="load" onclick="buttonLoadingAnimation(this); saveSessionStorage();"
+						data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Ricerca in corso">
+							Cerca
+						</button>
 					</div>
 				</div>
 			</form>
@@ -79,104 +83,9 @@
         Open source project available on <b><a href="https://github.com/fratorgano/Trenode.js" target="_blank">GitHub</a></b> <br>
 		Made by <b><a href="https://fratorgano.me" target="_blank">Francesco Torgano</a></b> © 2020
 	</footer>
-	<script>
-		window.onpageshow = function(){
-			if(sessionStorage.getItem('partenza')){
-				$('#partenza').val(sessionStorage.getItem('partenza'))
-			}
-			if(sessionStorage.getItem('codicePartenza')){
-				$('#codicePartenza').val(sessionStorage.getItem('codicePartenza'))
-			}
-			if(sessionStorage.getItem('arrivo')){
-				$('#arrivo').val(sessionStorage.getItem('arrivo')) 
-			}
-			if(sessionStorage.getItem('codiceArrivo')){
-				$('#codiceArrivo').val(sessionStorage.getItem('codiceArrivo'))
-			}
-			if(sessionStorage.getItem('ora')){
-				$('#ora').val(sessionStorage.getItem('ora'))
-			}
-			if(sessionStorage.getItem('codiceArrivo')){
-				$('#data').val(sessionStorage.getItem('data'))
-			}
-		}
-	</script>
-	<script>
-		var today = new Date();
-		var date = today.toISOString().substr(0, 10);
-		if (today.getMinutes() < 10) {
-			var time = today.getHours() + ':0' + today.getMinutes();
-		} else {
-			var time = today.getHours() + ':' + today.getMinutes();
-		}
-		//console.log(time);
-		var time = today.getHours()<10?'0'+today.getHours():today.getHours();
-		time += today.getMinutes()<10?':0'+ today.getMinutes():':' + today.getMinutes();
-		document.querySelector("#data").value = date;
-		document.querySelector("#ora").value = time;
-	</script>
-	<script>
-		$('#load').on('click', function () {
-			console.log($('#partenza').val)
-			sessionStorage.setItem('partenza',$('#partenza').val())
-			sessionStorage.setItem('codicePartenza',$('#codicePartenza').val())
-			sessionStorage.setItem('arrivo',$('#arrivo').val())
-			sessionStorage.setItem('codiceArrivo',$('#codiceArrivo').val())
-			sessionStorage.setItem('data',$('#data').val())
-			sessionStorage.setItem('ora',$('#ora').val())
-			var spin_button = $(this);
-			spin_button.button('loading');
-			setTimeout(function () {
-				spin_button.button('reset');
-			}, 1000);
-		});
-	</script>
-	<script>
-		function swapValues() {
-			var tmp = document.getElementById("partenza").value;
-			document.getElementById("partenza").value = document.getElementById("arrivo").value;
-			document.getElementById("arrivo").value = tmp;
-			tmp = document.getElementById("codicePartenza").value;
-			document.getElementById("codicePartenza").value = document.getElementById("codiceArrivo").value;
-			document.getElementById("codiceArrivo").value = tmp;
-		}
-	</script>
-	<script>
-		$.getJSON('/public/stazioni.json', function(stazioni) {
-			var txt_partenza = document.querySelector("#partenza");
-			var codicePartenza = document.querySelector("#codicePartenza");
-			var txt_arrivo = document.querySelector("#arrivo");
-			var codiceArrivo = document.querySelector("#codiceArrivo");
-			autocomplete({
-				input: txt_partenza,
-				minLenght: 1,
-				emptyMsg: "Nessuna stazione trovata",
-				fetch: function (text, update) {
-					text = text.toLowerCase();
-					var suggestions = stazioni.filter(n => n.label.toLowerCase().includes(text))
-					update(suggestions);
-				},
-				onSelect: function (item) {
-					txt_partenza.value = item.label.toLowerCase().replace(/\b./g, function(m){ return m.toUpperCase(); }) + ' (' + item.value + ')';
-					codicePartenza.value = item.value;
-				}
-			});
-			autocomplete({
-				input: txt_arrivo,
-				minLenght: 1,
-				emptyMsg: "Nessuna stazione trovata",
-				fetch: function (text, update) {
-					text = text.toLowerCase();
-					var suggestions = stazioni.filter(n => n.label.toLowerCase().includes(text))
-					update(suggestions);
-				},
-				onSelect: function (item) {
-					txt_arrivo.value = item.label.toLowerCase().replace(/\b./g, function(m){ return m.toUpperCase(); }) + ' (' + item.value + ')';
-					codiceArrivo.value = item.value;
-				}
-			});
-		});
-		
-	</script>
 </body>
+<script>
+	stationDropdownMenu();
+	dateTimeSetter();
+</script>
 </html>
