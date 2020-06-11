@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="https://kraaden.github.io/autocomplete/autocomplete.js"></script>
-	
+
 	<link rel="stylesheet" type="text/css" href="public/trenode.css" />
 	<script src="public/library.js"></script>
 	<link rel="shortcut icon" href="public/favicon.png" type="image/x-icon">
@@ -20,19 +21,23 @@
 
 <body onpageshow="loadSessionStorage()">
 	<div class="navbar text-center primary-bg">
-		<h1> <a href="/">Trenode.js</a> </h1> 
+		<h1> <a href="/">Trenode.js</a> </h1>
 		<p class="subtitle">Sicuramente meglio di Trenitalia!</p>
 	</div>
 	<div class="container">
-		<div class="col-md-12 text-center"><h2>Dicci solo...</h2></div>
+		<div class="col-md-12 text-center">
+			<h2>Dicci solo...</h2>
+		</div>
 		<div class="form-group">
 			<form action="/soluzioni" method="POST">
-				<div class="col-md-12"><h2>...dove?</h2></div>
+				<div class="col-md-12">
+					<h2>...dove?</h2>
+				</div>
 				<div class="col-md-5">
 					<div class="form-group">
 						<label>Partenza</label>
-						<input class="form-control input-secondary" required autocomplete="off" id="partenza" name="partenza"
-						type="text" value="Novara (S00248)" onfocus="this.select();"/>
+						<input class="form-control input-secondary" required autocomplete="off" id="partenza"
+							name="partenza" type="text" value="Novara (S00248)" onfocus="this.select();" />
 						<input type="hidden" name="codicePartenza" id="codicePartenza" value="S00248" />
 					</div>
 				</div>
@@ -47,31 +52,35 @@
 				<div class="col-md-5">
 					<div class="form-group">
 						<label>Arrivo</label>
-						<input class="form-control input-secondary" required autocomplete="off" id="arrivo" name="arrivo" type="text"
-						value="Milano Centrale (S01700)" onfocus="this.select();"/>
+						<input class="form-control input-secondary" required autocomplete="off" id="arrivo"
+							name="arrivo" type="text" value="Milano Centrale (S01700)" onfocus="this.select();" />
 						<input type="hidden" name="codiceArrivo" id="codiceArrivo" value="S01700" />
 					</div>
 				</div>
-				
-				<div class="col-md-12"><h2>...quando?</h2></div>
+
+				<div class="col-md-12">
+					<h2>...quando?</h2>
+				</div>
 				<div class="col-md-6">
 					<div class="form-group input-group-lg">
 						<label>Data</label>
 						<input class="form-control input-secondary firefox-fix" id="data" name="data" value=""
-						type="date" required/>
+							type="date" required />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group input-group-lg">
 						<label>Ora</label>
-						<input class="form-control input-secondary firefox-fix" id="ora" name="ora" type="time" required value=""/>
+						<input class="form-control input-secondary firefox-fix" id="ora" name="ora" type="time" required
+							value="" />
 					</div>
 				</div>
 
 				<div class="col-md-12">
 					<div class="form-group">
-						<button type="submit" class="btn btn-lg btn-primary" id="load" onclick="buttonLoadingAnimation(this); saveSessionStorage();"
-						data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Ricerca in corso">
+						<button type="submit" class="btn btn-lg btn-primary" id="load"
+							onclick="buttonLoadingAnimation(this); saveSessionStorage();"
+							data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Ricerca in corso">
 							Cerca
 						</button>
 					</div>
@@ -80,12 +89,15 @@
 		</div>
 	</div>
 	<footer class='footer'>
-        Open source project available on <b><a href="https://github.com/fratorgano/Trenode.js" target="_blank">GitHub</a></b> <br>
+		Open source project available on <b><a href="https://github.com/fratorgano/Trenode.js"
+				target="_blank">GitHub</a></b> <br>
 		Made by <b><a href="https://fratorgano.me" target="_blank">Francesco Torgano</a></b> © 2020
 	</footer>
+	<script>
+		stationDropdownMenu();
+		dateTimeSetter();
+	</script>
 </body>
-<script>
-	stationDropdownMenu();
-	dateTimeSetter();
-</script>
+
+
 </html>

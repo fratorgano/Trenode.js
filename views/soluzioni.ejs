@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,53 +20,57 @@
 
 <body>
 	<div class="navbar text-center primary-bg">
-		<h1> <a href="/">Trenode.js</a> </h1> 
+		<h1> <a href="/">Trenode.js</a> </h1>
 		<p class="subtitle">Sicuramente meglio di Trenitalia!</p>
 	</div>
 	<div class="container" style="padding-left: 30px;padding-bottom: 50px;">
 		<div class="col-sm-12">
-		<% if (typeof soluzioni !== 'undefined' && soluzioni.length > 0) { var i=0; 
+			<% if (typeof soluzioni !== 'undefined' && soluzioni.length > 0) { var i=0; 
 				%>
-		<form action="/trenoAjax" method="POST">
-			<h2 class="text-center"> Soluzioni trovate: </h2>
-			<% soluzioni.forEach(soluzione => {  if (i > 10) { return; } %>
+			<form action="/trenoAjax" method="POST">
+				<h2 class="text-center"> Soluzioni trovate: </h2>
+				<% soluzioni.forEach(soluzione => {  if (i > 10) { return; } %>
 
-			<div class="radio">
-				<label>
-				<input type="radio" name="nsol" value="<%= i %>" required>
-				
-					<% soluzione.vehicles.forEach(treno => { %>
-					<%= treno.origine.toLowerCase().replace(/\b\w/gm, c => c.toUpperCase()) %>
-					<%= treno.orarioPartenza.slice(treno.orarioPartenza.lastIndexOf('T') + 1,treno.orarioPartenza.length - 3); %>
-					<span class="fa fa-arrow-right"></span> <%= treno.destinazione.toLowerCase().replace(/\b\w/gm, c => c.toUpperCase()); %>
-					<%= treno.orarioArrivo.slice(treno.orarioPartenza.lastIndexOf('T') + 1,treno.orarioArrivo.length - 3); %>
-					<br>
-					<% }); %>
-				</label>
-			</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="nsol" value="<%= i %>" required>
 
-			<% i++;}); %>
-			<!-- <input type="text" hidden readonly value="<%=errore%>" name="id" /> -->
-			<button type="submit" class="btn btn-lg btn-primary" id="load" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Caricamento">Conferma</button>
-		</form>
-		<% }else{ %>
-			<p class="text-center h4"><%="Nessuna soluzione trovata, ci scusiamo per l'inconveniente."%></p>	
-		<%} %>
+						<% soluzione.vehicles.forEach(treno => { %>
+						<%= treno.origine.toLowerCase().replace(/\b\w/gm, c => c.toUpperCase()) %>
+						<%= treno.orarioPartenza.slice(treno.orarioPartenza.lastIndexOf('T') + 1,treno.orarioPartenza.length - 3); %>
+						<span class="fa fa-arrow-right"></span>
+						<%= treno.destinazione.toLowerCase().replace(/\b\w/gm, c => c.toUpperCase()); %>
+						<%= treno.orarioArrivo.slice(treno.orarioPartenza.lastIndexOf('T') + 1,treno.orarioArrivo.length - 3); %>
+						<br>
+						<% }); %>
+					</label>
+				</div>
+
+				<% i++;}); %>
+				<!-- <input type="text" hidden readonly value="<%=errore%>" name="id" /> -->
+				<button type="submit" class="btn btn-lg btn-primary" id="load"
+					data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Caricamento">Conferma</button>
+			</form>
+			<% }else{ %>
+			<p class="text-center h4"><%="Nessuna soluzione trovata, ci scusiamo per l'inconveniente."%></p>
+			<%} %>
 		</div>
 		<div class="col-sm-6"><br><a href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div>
 	</div>
 	<footer class='footer'>
-        Open source project available on <b><a href="https://github.com/fratorgano/Trenode.js" target="_blank">GitHub</a></b> <br>
+		Open source project available on <b><a href="https://github.com/fratorgano/Trenode.js"
+				target="_blank">GitHub</a></b> <br>
 		Made by <b><a href="https://fratorgano.me" target="_blank">Francesco Torgano</a></b> © 2020
 	</footer>
 	<script>
-		$('.btn').on('click', function() {
+		$('.btn').on('click', function () {
 			var $this = $(this);
-		$this.button('loading');
-			setTimeout(function() {
-			$this.button('reset');
-		}, 1000);
+			$this.button('loading');
+			setTimeout(function () {
+				$this.button('reset');
+			}, 1000);
 		});
 	</script>
 </body>
+
 </html>
