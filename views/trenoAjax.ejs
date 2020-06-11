@@ -62,22 +62,24 @@
                     divCont.insertAdjacentHTML('<div class="col-sm-6"><a href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div>') */
                     $('#jquery').html(
                         '<div class="container" id="cont"><div class="table-responsive" id="treni"></div><div class="col-sm-6"><a class="back" href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div></div>'
-                        );
+                    );
 
                     treni.forEach(treno => {
                         const h3 = document.createElement('h3');
                         const b = document.createElement('b');
+                        const small = document.createElement('small')
                         b.innerHTML = treno.salita.toLowerCase().replace(/\b\w/gm, c => c.toUpperCase()) +
                             ' <span class="fa fa-arrow-right"></span> ' + treno.discesa.toLowerCase()
                             .replace(/\b\w/gm, c => c.toUpperCase());
                         h3.appendChild(b);
                         h3.innerHTML += ' (' + treno.compNumeroTreno + ')<br>';
-                        h3.innerHTML += treno.oraUltimoRilevamento == undefined ? 'Non ancora partito' :
+                        small.innerHTML += treno.oraUltimoRilevamento == undefined ? 'Non ancora partito' :
                             treno.ritardo === undefined ? '' : (treno.fermate[treno.fermate.length - 1]
                                 .arrivoReale == undefined ? 'In ' : 'Arrivato in ') + (treno.ritardo == 0 ?
                                 'orario' : ((treno.ritardo > 0 ? ('ritardo di ' + treno.ritardo) : (
                                     'anticipo di ' + (treno.ritardo * -1)))) + (Math.abs(treno.ritardo) ==
                                     1 ? ' minuto' : ' minuti'));
+                        h3.appendChild(small);
                         h3.classList.add('mb');
 
                         const table = document.createElement('table');
@@ -109,7 +111,8 @@
                             if (!fermata.programmata && !fermata.partenza_teorica) {
                                 td.innerText = '- : -';
                             } else {
-                                td.innerText = d.getHours();
+                                td.innerText = d.getHours() < 10 ? ('0' + d.getHours()) : d
+                                    .getHours();
                                 td.innerText += ":";
                                 td.innerText += d.getMinutes() < 10 ? ('0' + d.getMinutes()) : d
                                     .getMinutes();
