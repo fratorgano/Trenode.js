@@ -21,6 +21,7 @@ Here is the work-in-progress website: [Trenode.tk](http://trenode.tk/)
 * Removed deprecated package for api requests. Now using [Axios](https://github.com/axios/axios)
 * Cleaned up the code a bit
 * Removed useless files from the repo (node_modules)
+* Status train's page now auto refreshes every minute
 
 ## To do list
 ### Server-side
