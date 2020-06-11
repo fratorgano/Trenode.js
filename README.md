@@ -1,4 +1,4 @@
-![trenodeIcon](https://github.com/FrancescoTorgano/Trenode.js/blob/master/images/favicon.ico)
+![trenodeIcon](https://github.com/fratorgano/Trenode.js/blob/master/public/icon.svg)
 # Trenode.js
 Trenode.js is a project I'm working on to give me and my friend an easy way to check italian trains schedule and real time train tracking through Trenitalia API. 
 This is my first Javascript/Node project so I'm sure there is a lot of spaghetti code. <br/>
@@ -21,6 +21,7 @@ Here is the work-in-progress website: [Trenode.tk](http://trenode.tk/)
 * Removed deprecated package for api requests. Now using [Axios](https://github.com/axios/axios)
 * Cleaned up the code a bit
 * Removed useless files from the repo (node_modules)
+* Status train's page now auto refreshes every minute
 
 ## To do list
 ### Server-side
