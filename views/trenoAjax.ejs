@@ -48,22 +48,15 @@
             http_request = new XMLHttpRequest();
             data_file = "dataAjax";
             http_request.onreadystatechange = function () {
+                // When the request is complete
                 if (http_request.readyState == 4) {
-                    // Javascript function JSON.parse to parse JSON data
+                    // Parse json data to js object
                     const treni = JSON.parse(http_request.responseText);
-                    //console.log(treni);
-                    /* const divCont = document.createElement('div');
-                    divCont.classList.add('container');
-                    divCont.id = 'cont';
-                    const divTreni = document.createElement('div');
-                    divTreni.classList.add('table-responsize');
-                    divTreni.id = 'treni';
-                    divCont.appendChild(divTreni);
-                    divCont.insertAdjacentHTML('<div class="col-sm-6"><a href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div>') */
+                    // Setting base structure of the div that will containt train status tables
                     $('#jquery').html(
                         '<div class="container" id="cont"><div class="table-responsive" id="treni"></div><div class="col-sm-6"><a class="back" href="/"><span class="fa fa-arrow-left"></span> Torna alla ricerca</a></div></div>'
                     );
-
+                    // Creating a delay status and a table for each train and adding it to the jquery div
                     treni.forEach(treno => {
                         const h3 = document.createElement('h3');
                         const b = document.createElement('b');
@@ -73,6 +66,8 @@
                             .replace(/\b\w/gm, c => c.toUpperCase());
                         h3.appendChild(b);
                         h3.innerHTML += ' (' + treno.compNumeroTreno + ')<br>';
+
+                        // Handling time formatting anddelay status
                         small.innerHTML += treno.oraUltimoRilevamento == undefined ? 'Non ancora partito' :
                             treno.ritardo === undefined ? '' : (treno.fermate[treno.fermate.length - 1]
                                 .arrivoReale == undefined ? 'In ' : 'Arrivato in ') + (treno.ritardo == 0 ?
@@ -82,6 +77,7 @@
                         h3.appendChild(small);
                         h3.classList.add('mb');
 
+                        // Creating table and table structure
                         const table = document.createElement('table');
                         table.classList.add('table');
                         const tbody = document.createElement('tbody');
@@ -99,9 +95,11 @@
                         th.innerText = 'Binario';
                         tr.appendChild(th);
                         tbody.appendChild(tr);
+                        // Adding data to the table
                         treno.fermate.forEach(fermata => {
                             tr = document.createElement('tr');
                             var td = document.createElement('td');
+                            // Formatting data to capitalize text
                             td.innerText = fermata.stazione.toLowerCase().replace(/\b\w/gm, c => c
                                 .toUpperCase());
                             tr.appendChild(td);
@@ -126,6 +124,7 @@
                                     fermata.ritardo) : fermata.ritardo);
                             tr.appendChild(td);
                             td = document.createElement('td');
+                            // Handling platform numbers based on the more accurate ones provided
                             td.innerText = fermata.binarioEffettivoPartenzaDescrizione ==
                                 undefined ? (fermata.binarioProgrammatoPartenzaDescrizione ==
                                     undefined ? (fermata.binarioEffettivoArrivoDescrizione ==
@@ -139,17 +138,14 @@
                             tbody.appendChild(tr);
                         })
 
-
-                        //tbody.appendChild(tr);
-                        //table.prepend(h3);
                         table.appendChild(tbody);
                         $('#treni').append(h3);
                         $('#treni').append(table);
 
-
                         var div = document.createElement('div');
                         div.classList.add('col-sm-6');
                         $('#treni').append(div);
+                        //Adding text to let the user know when the data was last updated
                         if (treno.stazioneUltimoRilevamento != null) {
                             var div = document.createElement('div');
                             const h6 = document.createElement('h6');
@@ -167,6 +163,7 @@
                             $('#treni').append(div);
                         }
                     })
+                    // Hiding the loading div and showing the one with data.
                     $('#loading').css('display', 'none');
                     $('#jquery').css('display', 'inline');
                 }

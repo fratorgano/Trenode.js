@@ -1,3 +1,6 @@
+// Library used for the index page
+
+// Swap values between departure and arrival inputs
 function swapValues() {
 	let tmp = document.getElementById('partenza').value;
 	document.getElementById('partenza').value = document.getElementById('arrivo').value;
@@ -7,13 +10,17 @@ function swapValues() {
 	document.getElementById('codiceArrivo').value = tmp;
 }
 
+// Enabling autocomplete of station departure and arrival
 function stationDropdownMenu() {
 	{
+		// Getting JSON data to autocomplete with from a stored file
 		$.getJSON('/public/stazioni.json', function(stazioni) {
 			const partenza = document.getElementById('partenza');
 			const codicePartenza = document.getElementById('codicePartenza');
 			const arrivo = document.getElementById('arrivo');
 			const codiceArrivo = document.getElementById('codiceArrivo');
+
+			// Enabling autocomplete for departure
 			autocomplete({
 				input: partenza,
 				minLenght: 1,
@@ -28,6 +35,7 @@ function stationDropdownMenu() {
 					codicePartenza.value = item.value;
 				},
 			});
+			// Enabling autocomplete for arrival
 			autocomplete({
 				input: arrivo,
 				minLenght: 1,
@@ -47,6 +55,7 @@ function stationDropdownMenu() {
 	}
 }
 
+// Sets date and time when you get to the index page to your current ones
 function dateTimeSetter() {
 	const today = new Date();
 	const date = today.toISOString().substr(0, 10);
@@ -58,6 +67,8 @@ function dateTimeSetter() {
 	document.getElementById('ora').value = time;
 	console.log('Date and time set');
 }
+
+// If the input data is saved in the session, it updates the data in the page input elements
 function loadSessionStorage() {
 	if(sessionStorage.getItem('partenza')) {
 		$('#partenza').val(sessionStorage.getItem('partenza'));
@@ -80,6 +91,7 @@ function loadSessionStorage() {
 	console.log('Loaded from session storage');
 }
 
+// Saving data before POST in the session storage with form input values
 function saveSessionStorage() {
 	sessionStorage.setItem('partenza', $('#partenza').val());
 	sessionStorage.setItem('codicePartenza', $('#codicePartenza').val());
@@ -90,6 +102,7 @@ function saveSessionStorage() {
 	console.log('Saved to session storage');
 }
 
+// Button animation function
 function buttonLoadingAnimation(button) {
 	const spin_button = $('#' + button.id);
 	spin_button.button('loading');

@@ -2,16 +2,14 @@ const express = require('express');
 const compression = require('compression');
 const session = require('express-session');
 const fs = require('fs');
-// const favicon = require('serve-favicon');
 
 const app = express();
 
-// app.use(express.static('public'));
+// Enabling middlewares
+
+// Using compression to compress the body of all the requests
 app.use(compression());
-app.use('/public', express.static(__dirname + '/public'));
-app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
-// app.use(favicon(path.join(__dirname, 'images', 'favicon.ico')));
+// Using express-session to implement sessions
 app.use(session({
 	secret: 'NCpPT3LyxSq5z8n52YPQsVrWvbvyBLSZ',
 	name: 'SessionId',
@@ -23,11 +21,20 @@ app.use(session({
 	// }
 }));
 
-const routesFiles = fs.readdirSync('./routes').filter(file => file.endsWith('.js'));
+// Setting parameters for the express app
 
+// Setting path for public files like css and js libraries
+app.use('/public', express.static(__dirname + '/public'));
+// Setting the engine for handling templates
+app.set('view engine', 'ejs');
+// Setting the template folder
+app.set('views', __dirname + '/views');
+
+
+// Loading router automatically based on the files in the folder
+const routesFiles = fs.readdirSync('./routes').filter(file => file.endsWith('.js'));
 for (const file of routesFiles) {
 	const route = require('./routes/' + file);
-	// console.log(file, route.name)
 	app.use(route.name, route.router);
 }
 
@@ -36,6 +43,7 @@ app.use(function(req, res) {
 	res.redirect('/');
 });
 
+// Activates the server
 const server = app.listen(8080, function() {
 	const host = server.address().address;
 	const port = server.address().port;

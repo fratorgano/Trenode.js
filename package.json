@@ -1,14 +1,16 @@
 {
   "name": "trenode",
   "version": "2.0.0",
-  "description": "",
-  "main": "TrenodeServer.js",
+  "description": "🚆Italian train schedule and status checker. https://trenode.tk/",
+  "main": "trenodeServer.js",
+  "private": true,
+  "author": "Francesco Torgano (https://fratorgano.me)",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node trenodeServer.js"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": "github:fratorgano/Trenode.js",
   "dependencies": {
     "axios": "^0.19.2",
     "bent": "^7.3.1",

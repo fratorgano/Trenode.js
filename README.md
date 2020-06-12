@@ -15,13 +15,13 @@ Here is the work-in-progress website: [Trenode.tk](http://trenode.tk/)
 
 ## What's new in version 2.0
 * Solutions with more than a train now render properly
+* Status train's page now automatically refreshes every minute
 * Almost completely code rewrite with promises (await and async too)
 * Updated layout of all the pages, now fully HTML5 compliant
 * Added dark mode
 * Removed deprecated package for api requests. Now using [Axios](https://github.com/axios/axios)
 * Cleaned up the code a bit
 * Removed useless files from the repo (node_modules)
-* Status train's page now auto refreshes every minute
 
 ## To do list
 ### Server-side
