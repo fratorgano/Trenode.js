@@ -45,7 +45,8 @@ If you want to try it on your local machine, you just need to run some simple co
 ### Server-side
 * [Node.js](https://github.com/nodejs/node) - Javascript runtime
 * [Express](https://github.com/expressjs/express) - Web Framework
-* [Express-Compresson](https://github.com/expressjs/compression) - Compression Middleware
+* [Express-Compression](https://github.com/expressjs/compression) - Compression Middleware
+* [Express-Session](https://github.com/expressjs/session) - Session Middleware
 * [Body-Parser](https://github.com/expressjs/body-parser) - Parsing Middleware
 * [EJS](https://github.com/mde/ejs) - Embedded JavaScript templates for Express
 * [Axios](https://github.com/axios/axios) - Promise based HTTP client for node.js
