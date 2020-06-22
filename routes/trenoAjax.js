@@ -11,6 +11,7 @@ const urlencodedParser = bodyParser.urlencoded({
 
 // If GET request of domain/trenoAjax and you have a session setup with all the data needed already, it renders the train status page otherwise redirects to the index page
 router.get('', (req, res) => {
+	console.log(req.session.soluzioni, req.session.nsol);
 	if(req.session.soluzioni === undefined || req.session.nsol === undefined) {
 		res.redirect('/');
 	}
@@ -21,20 +22,26 @@ router.get('', (req, res) => {
 
 // If POST request of domain/trenoAjax, renders the page
 router.post('', urlencodedParser, async function(req, res) {
-	try{
-
-		/* const used = process.memoryUsage().rss / 1024 / 1024;
-		console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`); */
-
-		// Saving choosen solution in the session
-		req.session.nsol = req.body.nsol;
-
-		res.render('trenoAjax');
-	}
-	catch(error) {
-		console.log(error);
+	if(req.session.soluzioni == undefined) {
 		res.redirect('/errore');
 	}
+	else{
+		try{
+
+			/* const used = process.memoryUsage().rss / 1024 / 1024;
+			console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`); */
+
+			// Saving choosen solution in the session
+			req.session.nsol = req.body.nsol;
+
+			res.render('trenoAjax');
+		}
+		catch(error) {
+			console.log(error);
+			res.redirect('/errore');
+		}
+	}
+
 });
 
 module.exports = {

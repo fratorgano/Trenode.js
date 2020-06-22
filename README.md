@@ -46,9 +46,8 @@ If you want to try it on your local machine, you just need to run some simple co
 * [Node.js](https://github.com/nodejs/node) - Javascript runtime
 * [Express](https://github.com/expressjs/express) - Web Framework
 * [Express-Compresson](https://github.com/expressjs/compression) - Compression Middleware
-* [Serve-favicon](https://github.com/expressjs/serve-favicon) - Favicon Middleware
 * [Body-Parser](https://github.com/expressjs/body-parser) - Parsing Middleware
-* [Path](https://github.com/jinder/path) - Path translator
+* [EJS](https://github.com/mde/ejs) - Embedded JavaScript templates for Express
 * [Axios](https://github.com/axios/axios) - Promise based HTTP client for node.js
 ### Client-side
 * [Bootstrap](https://github.com/twbs/bootstrap) - Front-end Framework
