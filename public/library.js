@@ -110,3 +110,8 @@ function buttonLoadingAnimation(button) {
 		spin_button.button('reset');
 	}, 1000);
 }
+
+function setYearToElementTextContent(id) {
+	const elem = document.getElementById(id);
+	elem.textContent = (new Date()).getFullYear()
+}

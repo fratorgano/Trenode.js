@@ -12,6 +12,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 	<script src="https://kraaden.github.io/autocomplete/autocomplete.js"></script>
 
+	<script src="public/library.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="public/trenode.css" />
 	<link rel="shortcut icon" href="public/favicon.png" type="image/x-icon">
 	<link rel="icon" href="public/favicon.png" type="image/x-icon">
@@ -35,8 +37,11 @@
 	<footer class='footer'>
 		Open source project available on <b><a href="https://github.com/fratorgano/Trenode.js"
 				target="_blank">GitHub</a></b> <br>
-		Made by <b><a href="https://fratorgano.me" target="_blank">Francesco Torgano</a></b> © 2020
+		Made by <b><a href="https://fratorgano.me" target="_blank">Francesco Torgano</a></b> © <span id="year"></span>
 	</footer>
+	<script>
+		setYearToElementTextContent('year');
+	</script>
 </body>
 
 </html>
