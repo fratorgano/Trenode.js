@@ -167,6 +167,22 @@
                             $('#treni').append(div);
                         }
                     })
+                    // add last update time for the page 
+                    var div = document.createElement('div');
+                    div.classList.add('col-sm-6');
+                    $('#treni').append(div);
+                    var div = document.createElement('div');
+                    const h6 = document.createElement('h6');
+                    h6.classList.add('text-right');
+                    h6.innerText = 'Ultimo aggiornamento: ';
+                    var o = new Date()
+                    h6.innerText += " ";
+                    h6.innerText += o.getHours();
+                    h6.innerText += ":";
+                    h6.innerText += o.getMinutes() < 10 ? ('0' + o.getMinutes()) : o.getMinutes();
+                    div.appendChild(h6);
+                    div.classList.add('col-sm-6');
+                    $('#treni').append(div);
                     // Hiding the loading div and showing the one with data.
                     $('#loading').css('display', 'none');
                     $('#jquery').css('display', 'inline');
