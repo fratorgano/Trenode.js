@@ -8,16 +8,16 @@ module.exports = {
 		// Setting url based on the type of the request
 		switch(type) {
 		// Url for requesting solutions between two station at a certain time and date
-		case 1: url = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/soluzioniViaggioNew/';
+		case 1: url = 'http://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/soluzioniViaggioNew/';
 			break;
 		// Url for requesting the departure train station with the train number
-		case 2: url = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/';
+		case 2: url = 'http://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/';
 			break;
 		// Url for requesting data about how the train is going: delays, platforms,...
-		case 3: url = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/';
+		case 3: url = 'http://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/andamentoTreno/';
 			break;
 		// Url for requesting autocompleting of the station name (Used only for urb trains)
-		case 4: url = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/autocompletaStazione/';
+		case 4: url = 'http://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/autocompletaStazione/';
 			break;
 		}
 		// Adding parameters to the url
