@@ -67,7 +67,7 @@
                         h3.appendChild(b);
                         h3.innerHTML += ' (' + treno.compNumeroTreno + ')<br>';
 
-                        // Handling time formatting anddelay status
+                        // Handling time formatting and delay status
                         small.innerHTML += treno.oraUltimoRilevamento == undefined ? 'Non ancora partito' :
                             treno.ritardo === undefined ? '' : (treno.fermate[treno.fermate.length - 1]
                                 .arrivoReale == undefined ? 'In ' : 'Arrivato in ') + (treno.ritardo == 0 ?
@@ -142,22 +142,26 @@
                         $('#treni').append(h3);
                         $('#treni').append(table);
 
-                        var div = document.createElement('div');
-                        div.classList.add('col-sm-6');
-                        $('#treni').append(div);
+                        
                         //Adding text to let the user know when the data was last updated
                         if (treno.stazioneUltimoRilevamento != null) {
+                            var div = document.createElement('div');
+                            div.classList.add('col-sm-6');
+                            $('#treni').append(div);
                             var div = document.createElement('div');
                             const h6 = document.createElement('h6');
                             h6.classList.add('text-right');
                             h6.innerText = 'Ultimo rilevamento: ';
                             h6.innerText += treno.stazioneUltimoRilevamento.toLowerCase().replace(/\b\w/gm,
                                 c => c.toUpperCase());
-                            var o = new Date(treno.oraUltimoRilevamento);
-                            h6.innerText += " ";
-                            h6.innerText += o.getHours();
-                            h6.innerText += ":";
-                            h6.innerText += o.getMinutes() < 10 ? ('0' + o.getMinutes()) : o.getMinutes();
+                            if (treno.oraUltimoRilevamento) {
+                                var o = new Date(treno.oraUltimoRilevamento);
+                                h6.innerText += " ";
+                                h6.innerText += o.getHours();
+                                h6.innerText += ":";
+                                h6.innerText += o.getMinutes() < 10 ? ('0' + o.getMinutes()) : o.getMinutes();
+                            }
+                            
                             div.appendChild(h6);
                             div.classList.add('col-sm-6');
                             $('#treni').append(div);
