@@ -36,7 +36,8 @@
 				<div class="radio">
 					<label>
 						<input type="radio" name="nsol" value="<%= i %>" required>
-
+						<b>Durata: <%= soluzione.durata %>, Cambi: <%= soluzione.vehicles.length-1 %></b>
+						<br>
 						<% soluzione.vehicles.forEach(treno => { %>
 						<%= treno.origine.toLowerCase().replace(/\b\w/gm, c => c.toUpperCase()) %>
 						<%= treno.orarioPartenza.slice(treno.orarioPartenza.lastIndexOf('T') + 1,treno.orarioPartenza.length - 3); %>
