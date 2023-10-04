@@ -67,7 +67,11 @@
             <thead>
               <th>Operatore</th>
               <th>Num</th>
-              <th>Arrivo</th>
+              <%if(timetableType.length>0 && timetableType!='Arrivi') {%>
+                <th>Per</th>
+              <%} else {%>
+                <th>Da</th>
+              <%}%>
               <th>Ora</th>
               <th>Rit</th>
               <th>Bin</th>
