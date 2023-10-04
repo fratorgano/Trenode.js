@@ -1,9 +1,9 @@
-![trenodeIcon](https://github.com/fratorgano/Trenode.js/blob/master/public/icon.svg)
+![trenodeIcon](https://raw.githubusercontent.com/fratorgano/Trenode.js/master/public/icon.svg)
 # Trenode.js
 Trenode.js is a project I'm working on to give me and my friend an easy way to check italian trains schedule and real time train tracking through Trenitalia API. 
 This is my first Javascript/Node project so I'm sure there is a lot of spaghetti code. <br/>
 Feel free to contribute! <br/>
-Here is the work-in-progress website: [Trenode.js](http://trenode.fratorgano.me/)
+Here is the website: [Trenode.js](http://trenode.fratorgano.me/)
 
 ## Current features
 * Search train solutions between two destinations at a certain date and time
@@ -12,6 +12,10 @@ Here is the work-in-progress website: [Trenode.js](http://trenode.fratorgano.me/
 * Fully responsive layout
 * Mobile friendly
 * Automatic dark mode
+
+## What's new in version 2.1
+* Fixed bug when Trenitalia provided solutions with some null values
+* Added new page to check timetable of stations for both arrivals and departures
 
 ## What's new in version 2.0
 * Solutions with more than a train now render properly
@@ -22,13 +26,6 @@ Here is the work-in-progress website: [Trenode.js](http://trenode.fratorgano.me/
 * Removed deprecated package for api requests. Now using [Axios](https://github.com/axios/axios)
 * Cleaned up the code a bit
 * Removed useless files from the repo (node_modules)
-
-## To do list
-### Server-side
-* Fix spaghetti code
-* Add comments
-### Client-side
-* Fix spaghetti code
 
 ## Known issues
 * Viaggiatreno APIs are not always reliable so train status might show the wrong train when checking the real time tracking (especially if checking a train that has not departed yet)

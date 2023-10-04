@@ -115,3 +115,27 @@ function setYearToElementTextContent(id) {
 	const elem = document.getElementById(id);
 	elem.textContent = (new Date()).getFullYear()
 }
+
+function stationDropdownMenuTabellone(){
+		// Getting JSON data to autocomplete with from a stored file
+		$.getJSON('/public/stazioni_tabellone.json', (stazioni) => {
+			const stazione = document.getElementById('stazione');
+			const codiceStazione = document.getElementById('codiceStazione');
+
+			// Enabling autocomplete for departure
+			autocomplete({
+				input: stazione,
+				minLenght: 1,
+				emptyMsg: 'Nessuna stazione trovata',
+				fetch: function(text, update) {
+					text = text.toLowerCase();
+					const suggestions = stazioni.filter(n => n.label.toLowerCase().includes(text));
+					update(suggestions);
+				},
+				onSelect: function(item) {
+					stazione.value = item.label;
+					codiceStazione.value = item.value;
+				},
+			});
+	})
+}

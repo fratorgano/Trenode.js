@@ -14,9 +14,6 @@ h1, h2, h3 {
     font-weight: 300;
     line-height: 1.2;
 }
-td {
-    width: 25%;
-}
 a {
     color: white;
     text-decoration: none; /* no underline */
@@ -110,6 +107,32 @@ a:hover{
     color:inherit;
 }
 
+.blink_me {
+  animation: blinker 1s linear infinite;
+  color: black;
+}
+  
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.table.tabellone > tbody > tr > td, .table.tabellone > thead > tr > th {
+  /*max-width: 0px !important;*/
+  white-space: normal !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .container {
+    padding: 2px;
+  }
+  .col-md-12 {
+    padding: 0px;
+  }
+}
+
+
 @media (prefers-color-scheme: dark) {
     body {
         background-color: #292929;
@@ -157,4 +180,7 @@ a:hover{
     .col-sm-6 a, .col-sm-6 a:hover{
         color: white;
     }
+    .blink_me {
+        color: white;
+      }
 }
