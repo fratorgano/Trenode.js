@@ -30,17 +30,28 @@ router.post('', urlencodedParser, async function(req, res) {
 		ora: req.body.ora,
 	};
 	// Formatting data for API request
-	response.data += 'T';
+	/* response.data += 'T';
 	response.ora += ':00';
-	response.data += response.ora;
+	response.data += response.ora; */
+	const data = new Date(Date.parse(`${response.data}T${response.ora}:00`))
 	if(response.codicePartenza == undefined || response.codiceArrivo == undefined) {
 		res.redirect('/errore');
 	}
 	// Requesting solutions from the API
-	const soluzioniData = await func.APIRequest(1, response.codicePartenza + '/' + response.codiceArrivo + '/' + response.data);
+	const soluzioniData = await func.APIRequest(1, response.codicePartenza + '/' + response.codiceArrivo + '/' + data.toISOString());
 	// Rendering solutions in the soluzioni page if the request works properly and saving data in the session
 	if(soluzioniData) {
+		const soluzioniCorrette = []
+		for (const soluzione of soluzioniData.soluzioni) {
+			const checkNullDestination = soluzione.vehicles.some((vehicle)=>vehicle.destinazione==null)
+			const checkNullOrigin = soluzione.vehicles.some((vehicle)=>vehicle.origine==null)
+			if(soluzione.durata && !checkNullDestination && !checkNullOrigin) {
+				soluzioniCorrette.push(soluzione)
+			}
+		}
+		soluzioniData.soluzioni = soluzioniCorrette
 		req.session.soluzioni = soluzioniData;
+		
 		res.render(page.slice(1), soluzioniData);
 	}
 	// Rendering error page if the requests fails.
