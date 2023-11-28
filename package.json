@@ -12,7 +12,7 @@
   "license": "MIT",
   "repository": "github:fratorgano/Trenode.js",
   "dependencies": {
-    "axios": "^0.21.2",
+    "axios": "^1.6.0",
     "cheerio": "^1.0.0-rc.12",
     "compression": "^1.7.4",
     "ejs": "^3.1.3",
