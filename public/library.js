@@ -122,6 +122,12 @@ function stationDropdownMenuTabellone(){
 			const stazione = document.getElementById('stazione');
 			const codiceStazione = document.getElementById('codiceStazione');
 
+			// Set a default station if none is set
+			if(!codiceStazione.value) {
+				codiceStazione.value = "1728"
+				stazione.value = "Milano Centrale"
+			}
+
 			// Enabling autocomplete for departure
 			autocomplete({
 				input: stazione,
