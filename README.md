@@ -12,6 +12,12 @@ Here is the website: [Trenode.js](http://trenode.fratorgano.me/)
 * Fully responsive layout
 * Mobile friendly
 * Automatic dark mode
+* Page to check timetable of stations for both arrivals and departures
+* Push notifications for timetable updates
+
+## What's new in version 2.2
+* Officially a web app! Now you can add it to your home screen and use it as a native app
+* Added push notifications to the timetable page to get notified about train updates
 
 ## What's new in version 2.1
 * Fixed bug when Trenitalia provided solutions with some null values
