@@ -29,6 +29,8 @@ app.use('/public', express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 // Setting the template folder
 app.set('views', __dirname + '/views');
+// Setting the body parser for the requests
+app.use(express.json());
 
 
 // Loading router automatically based on the files in the folder

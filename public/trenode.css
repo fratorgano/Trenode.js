@@ -92,6 +92,12 @@ a:hover{
     border-radius: 0px !important;
     width: 100%;
 }
+.btn-train-follow {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
 .container {
     padding-bottom: 5%;
 }
@@ -150,13 +156,13 @@ a:hover{
     .primary-bg{
         background-color: #005f9e;
     }
-    .input-secondary {
-        color: #d6d3cd;
-        background-color: #005f9e57;
-    }
     .btn{
         background-color: #292929;
         border: 1px solid #005f9e
+    }
+    .input-secondary {
+        color: #d6d3cd;
+        background-color: #005f9e57;
     }
     .btn.focus, .btn:focus, .btn:hover {
         color: white;
@@ -182,5 +188,5 @@ a:hover{
     }
     .blink_me {
         color: white;
-      }
+    }
 }

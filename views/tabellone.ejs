@@ -18,6 +18,8 @@
 	<link rel="icon" href="public/favicon.png" type="image/x-icon">
 	<link rel="apple-touch-icon" href="public/apple-touch-icon.png">
 	<title>Tabellone - Trenode.js</title>
+
+  <link rel="manifest" href="public/manifest.json" />
 </head>
 
 <body>
@@ -80,11 +82,11 @@
             <tbody>
               <% trainsData.forEach(train => { %>
                 <tr>
-                  <td ><%= train.operator %></td>
-                  <td ><%= train.code %></td>
-                  <td ><%= train.destination %></td>
-                  <td ><%= train.departureTime %></td>
-                  <td ><%= train.delay %></td>
+                  <td><%= train.operator %></td>
+                  <td><button class="btn btn-train-follow"><%= train.code %></button></td>
+                  <td><%= train.destination %></td>
+                  <td><%= train.departureTime %></td>
+                  <td><%= train.delay %></td>
                   
                   <% if (train.isLeaving) { %>
                     <!-- <td class="blink_me">•</td> -->
@@ -123,6 +125,13 @@
       location.reload();
     }
   }, 30_000);
+</script>
+<script src="public/notification_handler.js"></script>
+<script>
+  const trainsData = <%- encodedTrainsData %>;
+  (async function() {
+    setupButtons(trainsData);
+  })();
 </script>
 <% }%>
 <script>

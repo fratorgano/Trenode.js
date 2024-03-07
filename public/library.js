@@ -145,3 +145,70 @@ function stationDropdownMenuTabellone(){
 			});
 	})
 }
+
+function saveSessionStorage(name,object) {
+	sessionStorage.setItem(name,JSON.stringify(object))
+}
+function loadSessionStorage(name) {
+	if(sessionStorage.getItem(name)) {
+		return JSON.parse(sessionStorage.getItem(name))
+	} else {
+		return null
+	}
+}
+
+function followTrain(trainCode, trainsData) {
+	// check if trainCode is in trainsData 
+	let trainExists = false;
+	for (let i = 0; i < trainsData.length; i++) {
+		if(trainsData[i]['code'] === trainCode) {
+			trainExists = true;
+			break;
+		}
+	}
+	let followedTrains = loadSessionStorage('followedTrains');
+	if(followedTrains === null) {
+		followedTrains = [trainCode];
+		saveSessionStorage('followedTrains',followedTrains);
+	} else {
+		followedTrains = cleanFollowedTrains(followedTrains, trainsData)
+		if (!followedTrains.includes(trainCode)) {
+			followedTrains.push(trainCode)
+			saveSessionStorage('followedTrains',followedTrains);
+		} else {
+			let index = followedTrains.indexOf(trainCode)
+			if (index > -1) {
+				followedTrains.splice(index, 1);
+			}
+			saveSessionStorage('followedTrains',followedTrains);
+		}
+	}
+	return followedTrains;
+}
+
+function cleanFollowedTrains(followedTrains, trainsData) {
+	let cleanedFollowedTrains = []
+	// console.log('Dirty:'+followedTrains)
+	for (let i = 0; i < followedTrains.length; i++) {
+		for (let j = 0; j < trainsData.length; j++) {
+			if(followedTrains[i] === trainsData[j]['code']) {
+				cleanedFollowedTrains.push(followedTrains[i])
+			}
+		}
+	}
+	// console.log('Clean:'+cleanedFollowedTrains)
+	return cleanedFollowedTrains
+}
+
+function urlBase64ToUint8Array(base64String) {
+	const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+	const base64 = (base64String + padding)
+		.replace(/\-/g, "+")
+		.replace(/_/g, "/");
+	const rawData = atob(base64);
+	const outputArray = new Uint8Array(rawData.length);
+	for (let i = 0; i < rawData.length; ++i) {
+		outputArray[i] = rawData.charCodeAt(i);
+	}
+	return outputArray;
+}

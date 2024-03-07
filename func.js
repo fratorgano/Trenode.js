@@ -1,4 +1,7 @@
 const axios = require('axios');
+const cheerio = require('cheerio');
+
+let lastData = {};
 
 // Creating a module for functions useful in routes to help keep the code clean and tidy
 module.exports = {
@@ -92,4 +95,55 @@ module.exports = {
 			});
 		});
 	},
+	TimetableRequest: async function TimetableRequest(station, isArrival) {
+		const response = await axios({
+      method: 'GET',
+      headers: { 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/118.0'},
+      url: 'https://iechub.rfi.it/ArriviPartenze/ArrivalsDepartures/Monitor',
+      params: {
+        'placeId': station,
+        'arrivals': isArrival,
+      },
+    });
+		let cachedData = lastData[station+isArrival];
+		if (cachedData != null && cachedData.timestamp > Date.now() - 15000) {
+			console.log('Using cached data')
+			return cachedData.data;
+		}
+    const html = await response.data;
+    const $ = cheerio.load(html);
+    const stationName = $('h1#nomeStazioneId').text().trim().toLowerCase().replace(/\b\w/g, match => match.toUpperCase());
+    const allRows = $('table#monitor.monitors > tbody > tr');
+    const trainsData = []
+    for (const row of allRows) {
+      const tds = $(row).find('td');
+      const trainCode = String(tds[2].children[0].data).trim()
+      if(trainCode.length>0){
+        const trainOperator = tds[0].children[1].attribs.alt.toLowerCase().replace(/\b\w/g, match => match.toUpperCase());
+        // const trainCategory = tds[1]
+        const trainDestination = String(tds[3].children[1].children[0].data).trim().toLowerCase().replace(/\b\w/g, match => match.toUpperCase());
+        const trainTime = String(tds[4].children[0].data).trim()
+        const trainDelay = String(tds[5].children[0].data).trim()
+        const trainDelayDisplay = trainDelay == 'Cancellato' ? '❌':trainDelay
+        const trainPlatform =  String(tds[6].children[1].children[0].data).trim()
+        const trainLeaving = tds[7].children[0].next == null ?false:true
+        const trainStops = tds[8].children[3] ? String(tds[8].children[3].children[5].children[0].data).trim().toLowerCase().replace(/\b\w/g, match => match.toUpperCase()):"";
+        const trainAdditionalInfo = tds[8].children[3] ? String(tds[8].children[3].children[9]?tds[8].children[3].children[9].children[0].data:"").trim().toLowerCase().replace(/\b\w/g, match => match.toUpperCase()): "";
+        const train = {
+          'operator': trainOperator,
+          'code': trainCode,
+          'destination': trainDestination,
+          'departureTime': trainTime,
+          'delay': trainDelayDisplay,
+          'platform': trainPlatform,
+          'isLeaving': trainLeaving,
+          'stops': trainStops,
+          'additionalInfo': trainAdditionalInfo
+        }
+        trainsData.push(train)
+      }
+		}
+		lastData[station+isArrival] = {timestamp: Date.now(), data: {stationName, trainsData}};
+		return {stationName, trainsData};
+	}
 };

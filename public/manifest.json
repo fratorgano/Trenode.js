@@ -1,0 +1,21 @@
+{
+    "name": "Trenode.js",
+    "short_name": "Trenode.js",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "Italian train schedule and status checker.",
+    "icons": [
+      {
+        "src": "apple-touch-icon.png",
+        "sizes": "180x180",
+        "type": "image/png"
+      },
+      {
+        "src": "favicon.png",
+        "sizes": "180x180",
+        "type": "image/png"
+      }
+    ]
+}
+  
