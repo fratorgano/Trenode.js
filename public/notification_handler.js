@@ -1,6 +1,9 @@
 async function setupButtons(trainsData) {
   // load followed trains from session storage
   let followedTrains = loadSessionStorage('followedTrains');
+  if (followedTrains === null) {
+    followedTrains = [];
+  }
   // get all the buttons with the class btn-train-follow
   const elements = document.getElementsByClassName("btn-train-follow");
   // get parameters from url
