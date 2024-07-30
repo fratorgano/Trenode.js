@@ -6,8 +6,8 @@ Feel free to contribute! <br/>
 Here is the website: [Trenode.js](http://trenode.fratorgano.me/)
 
 ## Current features
-* Search train solutions between two destinations at a certain date and time
-* Choosing a solution allows to check the trains status, including trains numbers, platforms and delays
+* ~~Search train solutions between two destinations at a certain date and time~~ Trenitalia broke the viaggiatreno APIs that were being used
+* ~~Choosing a solution allows to check the trains status, including trains numbers, platforms and delays~~ Trenitalia broke the viaggiatreno APIs that were being used
 * Autocompleting  date, time(to current ones) and station names in the form
 * Fully responsive layout
 * Mobile friendly
