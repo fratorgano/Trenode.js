@@ -51,7 +51,6 @@ function stationDropdownMenu() {
 				},
 			});
 		});
-
 	}
 }
 
@@ -116,34 +115,60 @@ function setYearToElementTextContent(id) {
 	elem.textContent = (new Date()).getFullYear()
 }
 
-function stationDropdownMenuTabellone(){
-		// Getting JSON data to autocomplete with from a stored file
-		$.getJSON('/public/stazioni_tabellone.json', (stazioni) => {
-			const stazione = document.getElementById('stazione');
-			const codiceStazione = document.getElementById('codiceStazione');
+function stationDropdownMenuTabellone() {
+	// Getting JSON data to autocomplete with from a stored file
+	$.getJSON('/public/stazioni_tabellone.json', (stazioni) => {
+		const stazione = document.getElementById('stazione');
+		const codiceStazione = document.getElementById('codiceStazione');
 
-			// Set a default station if none is set
-			if(!codiceStazione.value) {
-				codiceStazione.value = "1728"
-				stazione.value = "Milano Centrale"
+		// Set a default station if none is set
+		if(!codiceStazione.value) {
+			codiceStazione.value = "1728"
+			stazione.value = "Milano Centrale"
+		}
+
+		stazioni = stazioni.map((stazione) => {
+			return {label: capitalize(stazione.label.toLowerCase()), value: stazione.value}
+		})
+		
+
+		// set config for autocomplete.js
+		const config = {
+			selector: '#stazione',
+			placeHolder: 'Cerca stazione',
+			data: {
+				src: stazioni,
+				// Data source 'Object' key to be searched
+				keys: ["label"]
+			},
+			resultsList :{
+				class: "input-secondary",
+			} 
+		}
+		// create the autocomplete
+		const autocomplete = new autoComplete(config);
+		// setup the selection event
+		document.querySelector("#stazione").addEventListener("selection", function (event) {
+			// "event.detail" carries the autoComplete.js "feedback" object
+			const item = event.detail.selection.value;
+			stazione.value = item.label;
+			codiceStazione.value = item.value;
+		});
+		document.querySelector("#stazione").addEventListener("focus", function (event) {
+			const inputValue = autocomplete.input.value;
+			if (inputValue.length > 0) {
+				autocomplete.start();
 			}
+		});
+	});
+}
 
-			// Enabling autocomplete for departure
-			autocomplete({
-				input: stazione,
-				minLenght: 1,
-				emptyMsg: 'Nessuna stazione trovata',
-				fetch: function(text, update) {
-					text = text.toLowerCase();
-					const suggestions = stazioni.filter(n => n.label.toLowerCase().includes(text));
-					update(suggestions);
-				},
-				onSelect: function(item) {
-					stazione.value = item.label;
-					codiceStazione.value = item.value;
-				},
-			});
-	})
+function capitalize(str) {
+	const sentences = str.split(' ');
+  sentences.forEach((sentence, index) => {
+    sentences[index] = sentence.charAt(0).toUpperCase() + sentence.slice(1);
+  });
+  return sentences.join(' ');
 }
 
 function saveSessionStorage(name,object) {

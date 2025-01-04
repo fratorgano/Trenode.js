@@ -34,27 +34,6 @@ a:hover{
     color: white;
     text-decoration: none; /* no underline */
 }
-.autocomplete {
-    background: white;
-    z-index: 1000;
-    overflow: auto;
-    box-sizing: border-box;
-    border: 0px solid rgba(50, 50, 50, 0.6);
-}
-.autocomplete * {
-    font: inherit;
-}
-.autocomplete > div {
-    padding: 2% 3%;
-}
-.autocomplete .group {
-    background: #eee;
-}
-.autocomplete > div:hover:not(.group),
-.autocomplete > div.selected {
-    background: #c9e9ff;
-    cursor: pointer;
-}
 .form-control {
     line-height: 1.5;
     color: #495057;
@@ -162,7 +141,7 @@ a:hover{
     }
     .input-secondary {
         color: #d6d3cd;
-        background-color: #005f9e57;
+        background-color: #1b3b51;
     }
     .btn.focus, .btn:focus, .btn:hover {
         color: white;
@@ -175,13 +154,6 @@ a:hover{
     }
     .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
         border-top: 1px solid #6262626b;
-    }
-    .autocomplete {
-        background: #292929;
-    }
-    .autocomplete > div:hover:not(.group), .autocomplete > div.selected {
-        background: #005f9e57;
-        cursor: pointer;
     }
     .col-sm-6 a, .col-sm-6 a:hover{
         color: white;
