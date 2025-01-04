@@ -29,7 +29,6 @@ router.get('', (req, res) => {
 // Automatically check if there is an update every 30 seconds
 let lastData = {}; 
 setInterval(async () => {
-  console.log('Checking for updates')
   let newLastData = {};
   // Get the data
   for (const subscriber of subscribers) {
@@ -57,8 +56,8 @@ setInterval(async () => {
       if(subscriber.followedTrains.includes(train.code)) {
         // check if the train has changed
         let oldTrain = related_old_data.trainsData.find(t => t.code === train.code);
-        console.log('Old train: '+JSON.stringify(oldTrain));
-        console.log('New train: '+JSON.stringify(train));
+        // console.log('Old train: '+JSON.stringify(oldTrain));
+        // console.log('New train: '+JSON.stringify(train));
         if(oldTrain !== undefined) {
           if(oldTrain.delay !== train.delay) {
             console.log('Train delay has changed');
@@ -73,9 +72,9 @@ setInterval(async () => {
             webpush.sendNotification(subscriber.subscription, JSON.stringify({title: `Platform update - Train ${train.code}`, body: `Train ${train.code} has changed platform to ${train.platform}`}))
           }
           if (oldTrain.isLeaving !== train.isLeaving) {
-            console.log('Train is leaving');
-            let text = !get_info.arrivi ? ['arriving','arriving at'] : ['leaving','leaving from'];
-            webpush.sendNotification(subscriber.subscription, JSON.stringify({title: `Status update - Train ${train.code}`, body: `Train ${train.code} is ${text[1]} the station`}))
+            console.log('Train is arriving/leaving');
+            let verb = get_info.arrivi=='True' ? 'arriving at' : 'leaving';
+            webpush.sendNotification(subscriber.subscription, JSON.stringify({title: `Status update - Train ${train.code}`, body: `Train ${train.code} is ${verb} the station`}))
           }
         }
       }
@@ -85,6 +84,10 @@ setInterval(async () => {
     for (let train of subscriber.followedTrains) {
       if(newData.trainsData.find(t => t.code === train) !== undefined) {
         newFollowedTrains.push(train);
+      } else {
+        console.log('Tracked train '+train+' has been removed because it is not on the list anymore (left or arrived)');
+        let verb = get_info.arrivi=='True' ? 'arrived at' : 'left';
+        webpush.sendNotification(subscriber.subscription, JSON.stringify({title: `Status update - Train ${train}`, body: `Train ${train} ${verb} the station`}))
       }
     }
     subscriber.followedTrains = newFollowedTrains;
@@ -119,7 +122,9 @@ router.post('', (req, res) => {
     // save the subscription
     subscribers.push(req.body);
   }
-  console.log(subscribers)
+  for (const subscriber of subscribers) {
+    console.log('Subscriber follows '+subscriber.followedTrains+' for '+ JSON.stringify(subscriber.get_info));
+  }
   
   res.sendStatus(200);
 });
