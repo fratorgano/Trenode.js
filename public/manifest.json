@@ -1,7 +1,7 @@
 {
     "name": "Trenode.js",
     "short_name": "Trenode.js",
-    "start_url": ".",
+    "start_url": "/tabellone",
     "display": "standalone",
     "background_color": "#fff",
     "description": "Italian train schedule and status checker.",

@@ -56,7 +56,7 @@ module.exports = {
 						data = data.slice(0, limite);
 						const inizio = data.lastIndexOf('|') + 1;
 						const stazionePartenza = data.slice(inizio);
-                                                const splitted = stazionePartenza.split("-");
+            const splitted = stazionePartenza.split("-");
 						const train = await module.exports.APIRequest(3, splitted[1] + '/' + splitted[0] + '/' + splitted[2]);
 						if(train) {
 							train.salita = vehicle.origine;
